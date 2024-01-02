@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import NavbarVue from './components/Navbar.vue';
+import { RouterView } from 'vue-router';
+import NavbarVue from './components/Navbar.vue'
 </script>
 
 <template>
   <main class="max-w-10xl mx-auto">
     <NavbarVue />
+    <RouterView />
   </main>
 </template>
 
