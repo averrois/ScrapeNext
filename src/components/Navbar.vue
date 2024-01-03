@@ -7,9 +7,9 @@ const isOpen = ref(false)
 </script>
 
 <template>
-    <header class="md:mb-8 py-4 px-4 flex justify-between items-center select-none max-w-10xl">
+    <header class="md:mb-8 py-4 px-4 flex justify-between items-center select-none max-w-10xl text-white-800">
       <div class="text-2xl font-semibold flex justify-between items-center">
-          <RouterLink to="/" class="font-extrabold text-3xl">
+          <RouterLink to="/" class="logo">
             Logo
           </RouterLink>
       </div>
@@ -29,12 +29,12 @@ const isOpen = ref(false)
       </div>
 
       <!-- Desktop Links -->
-      <div class="hidden md:block text-sm">
-        <RouterLink  to="/" class="py-2 px-3 ml-2 hover:bg-indigo-100 rounded">
+      <div class="hidden justify-center items-center md:block text-sm">
+        <RouterLink  to="/" class="py-2 px-3 ml-2 hover:bg-white-500 hover:text-black-400 rounded">
           Home
         </RouterLink>
 
-        <RouterLink  to="/about" class="py-2 px-3 ml-2 hover:bg-indigo-100 rounded">
+        <RouterLink  to="/about" class="py-2 px-3 ml-2 hover:bg-white-500 hover:text-black-400 rounded">
           About Us
         </RouterLink>
       </div>
@@ -54,11 +54,12 @@ const isOpen = ref(false)
 
 <style scoped>
 .logo{
-    font-size: 25px;
+    font-size: 30px;
     font-weight: bold;
+    color: white;
 }
 
 a {
-    font-size: 18px;
+    font-size: 17px;
 }
 </style>
