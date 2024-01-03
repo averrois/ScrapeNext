@@ -16,13 +16,13 @@ const isOpen = ref(false)
 
       <div class="text-gray-800 sm:block md:hidden">
         <div @click="isOpen =! isOpen" v-show="!isOpen">
-          <svg class="fill-current w-8 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <svg class="fill-white-800  w-8 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
           </svg>
         </div>
 
         <div @click="isOpen =! isOpen" v-show="isOpen">
-          <svg class="fill-current w-8 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <svg class="fill-white-800 w-8 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
           </svg>
         </div>
@@ -41,12 +41,12 @@ const isOpen = ref(false)
     </header>
 
     <!-- Mobile Links -->
-    <div class="bg-white px-4 py-4 select-none border-b md:hidden" v-if="isOpen">
-      <RouterLink  to="/" class="block mb-2 font-semibold text-gray-800 py-2 px-3 hover:bg-gray-200 rounded cursor-pointer">
+    <div class="bg-black-200 px-4 py-4 select-none  md:hidden" v-if="isOpen">
+      <RouterLink  to="/" class="block mb-2 font-semibold text-white-800 py-2 px-3 hover:bg-black-100 rounded cursor-pointer">
         Home
       </RouterLink>
 
-      <RouterLink  to="/about" class="block mb-2 font-semibold text-gray-800 py-2 px-3 hover:bg-gray-200 rounded cursor-pointer">
+      <RouterLink  to="/about" class="block mb-2 font-semibold text-white-800 py-2 px-3 hover:bg-black-100 rounded cursor-pointer">
         About Us
       </RouterLink>
     </div>
