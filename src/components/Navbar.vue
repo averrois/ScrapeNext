@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import NavbarLink from './NavbarLink.vue'
+import { RouterLink } from 'vue-router';
 
 const isOpen = ref(false)
 
@@ -9,7 +10,9 @@ const isOpen = ref(false)
 <template>
   <header class="md:mb-8 py-4 px-4 flex justify-between items-center select-none max-w-10xl text-white-800">
     <div class="text-2xl font-semibold flex justify-between items-center">
-      <NavbarLink href="/" link="Logo" class="logo"/>
+      <RouterLink to="/" class="logo">
+        Logo
+      </RouterLink>
     </div>
 
     <div class="text-gray-800 sm:block md:hidden">
