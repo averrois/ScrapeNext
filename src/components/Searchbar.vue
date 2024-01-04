@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { scrapeAndStoreProduct } from '../lib/actions'
+import { scrapeAndStoreProduct } from '@/lib/actions'
 
 const searchPrompt = ref('')
 
