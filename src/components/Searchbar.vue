@@ -46,9 +46,7 @@ const handleSubmit = async (e: Event) => {
 
 
 const handleSearchValue = (e: Event) => {
-    const isValidLink =
-
-        searchPrompt.value = (e.target as HTMLInputElement).value
+    searchPrompt.value = (e.target as HTMLInputElement).value
 }
 
 </script>
