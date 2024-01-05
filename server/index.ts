@@ -1,4 +1,4 @@
-import express, {Request, Response} from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import axios from 'axios';
 import mongoose from 'mongoose';
@@ -38,7 +38,7 @@ connectToDB()
 // proxy route
 app.use('/api', async (req: Request, res: Response) => {
   try {
-    const url = req.query.url; // Assuming you pass the URL as a query parameter
+    const url = String(req.query.url); // Assuming you pass the URL as a query parameter
 
     if (!url) {
       return res.status(400).json({ error: 'Missing URL parameter' });
@@ -50,7 +50,7 @@ app.use('/api', async (req: Request, res: Response) => {
     const port = 22225;
     const session_id = (1000000 * Math.random()) | 0;
 
-    const options = {
+    const options: any = {
       auth: {
         username: `${username}-session-${session_id}`,
         password,
