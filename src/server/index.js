@@ -1,15 +1,41 @@
-// backend-server.js
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
+dotenv.config({ path: '../../.env' })
 const app = express();
 const port = 3000; // Adjust the port as needed
 
 // Enable CORS
 app.use(cors());
 
-// Your proxy route
+
+// Connect to MongoDB
+let isConnected = false;// Variable to track the connection status
+
+const connectToDB = async () => {
+  mongoose.set('strictQuery', true);
+
+  if (!process.env.VITE_MONGODB_URI) return console.log('MONGODB_URI is not defined');
+
+  if (isConnected) return console.log('=> using existing database connection');
+
+  try {
+    await mongoose.connect(process.env.VITE_MONGODB_URI);
+
+    isConnected = true;
+
+    console.log('MongoDB Connected');
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+connectToDB()
+
+// proxy route
 app.use('/api', async (req, res) => {
   try {
     const url = req.query.url; // Assuming you pass the URL as a query parameter
@@ -19,8 +45,8 @@ app.use('/api', async (req, res) => {
     }
 
     // Config bright data proxy
-    const username = 'YOUR_BRIGHT_DATA_USERNAME';
-    const password = 'YOUR_BRIGHT_DATA_PASSWORD';
+    const username = process.env.VITE_BRIGHT_DATA_USERNAME;
+    const password = process.env.VITE_BRIGHT_DATA_PASSWORD;;
     const port = 22225;
     const session_id = (1000000 * Math.random()) | 0;
 
