@@ -3,6 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { connectToDB } from './lib/database';
 import { scrapeAmazonProduct } from './lib/scrape';
+import Product from './lib/database/models/product.model';
+import { getAveragePrice, getHighestPrice, getLowestPrice } from './lib/utils';
 
 dotenv.config({ path: '../.env' })
 export const app = express();
@@ -13,7 +15,7 @@ app.use(cors());
 
 
 // Connect to MongoDB
-connectToDB()
+connectToDB();
 
 // proxy route
 app.use('/api', async (req: Request, res: Response) => {
@@ -24,8 +26,34 @@ app.use('/api', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Missing URL parameter' });
     }
 
-    const data = await scrapeAmazonProduct(url, req, res)
-    console.log(data)
+    const scrapedProudct = await scrapeAmazonProduct(url, req, res);
+
+    if (!scrapedProudct) return;
+
+    let product = scrapedProudct;
+
+    const existingProduct = await Product.findOne({ url: scrapedProudct.url });
+
+    if (existingProduct) {
+      const updatedPriceHistory: any = [
+        ...existingProduct.priceHistory,
+        { price: scrapedProudct.currentPrice }
+      ]
+
+      product = {
+        ...scrapedProudct,
+        priceHistory: updatedPriceHistory,
+        lowestPrice: getLowestPrice(updatedPriceHistory),
+        highestPrice: getHighestPrice(updatedPriceHistory),
+        averagePrice: getAveragePrice(updatedPriceHistory),
+      }
+    }
+
+    const newProduct = await Product.findOneAndUpdate(
+      { url: scrapedProudct.url },
+      product,
+      { upsert: true, new: true }
+    );
   } catch (error: any) {
     console.error('Error:', error.message);
     res.status(500).json({ error: 'Internal server error' });
