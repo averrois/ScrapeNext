@@ -13,12 +13,11 @@ const port = 3000;
 // Enable CORS
 app.use(cors());
 
-
-// Connect to MongoDB
-connectToDB();
-
 // proxy route
 app.use('/api', async (req: Request, res: Response) => {
+  // Connect to MongoDB
+  connectToDB();
+
   try {
     const url = String(req.query.url); // Pass the URL as a query parameter
 
