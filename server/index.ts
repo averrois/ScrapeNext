@@ -6,6 +6,7 @@ import { scrapeAmazonProduct } from './lib/scrape';
 import Product from './lib/database/models/product.model';
 import { getAveragePrice, getHighestPrice, getLowestPrice } from './lib/utils';
 import { getAllProducts } from './lib/controllers/productController';
+import { createSSRApp} from 'vue'
 
 dotenv.config({ path: '../.env' })
 export const app = express();
@@ -64,7 +65,14 @@ app.use('/api', async (req: Request, res: Response) => {
 // const router = express.Router()
 
 // Check this: https://github.com/elibolonur/ts-express-vue3/blob/main/server/app.ts
-app.use('/products', getAllProducts)
+// app.use('/products', getAllProducts)
+
+app.use('/products', (req, res) => {
+  const data = createSSRApp({
+    data: () => getAllProducts,
+  });
+  res.send(data)
+});
 
 
 // Start the server
