@@ -63,7 +63,9 @@ app.use('/api', async (req: Request, res: Response) => {
 
 const router = express.Router()
 
-router.get('/products', getAllProducts)
+router.get('/products', async (req: Request, res: Response) => {
+  await res.send(getAllProducts)
+})
 
 
 // Start the server
