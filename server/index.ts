@@ -59,6 +59,8 @@ app.use('/api', async (req: Request, res: Response) => {
   }
 });
 
+app.use('/products')
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
