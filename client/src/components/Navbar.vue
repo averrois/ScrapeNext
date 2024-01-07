@@ -33,14 +33,14 @@ const isOpen = ref(false)
     <!-- Desktop Links -->
     <div class="hidden justify-center items-center md:block text-sm">
       <NavbarLink href="/" link="Home" />
-      <NavbarLink href="/about" link="About Us" />
+      <NavbarLink href="/product" link="Products" />
     </div>
   </header>
 
   <!-- Mobile Links -->
   <div class="bg-black-200 px-4 py-4 select-none  md:hidden" v-if="isOpen">
     <NavbarLink href="/" link="Home" />
-    <NavbarLink href="/about" link="About Us" />
+    <NavbarLink href="/product" link="Products" />
   </div>
 </template>
 

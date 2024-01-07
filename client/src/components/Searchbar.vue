@@ -66,7 +66,7 @@ const handleSearchValue = (e: Event) => {
                 class="block w-full p-4 ps-10 text-lg text-gray-900 border border-gray-300 rounded bg-gray-50  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                 placeholder="paste url here..." required v-model="searchPrompt" @input="handleSearchValue" />
             <button type="submit"
-                class="text-white absolute end-2.5 bottom-2.5 bg-primary focus:outline-none font-medium rounded text-lg font-bold px-6 py-2">
+                class="text-white absolute end-2.5 bottom-2.5 bg-primary focus:outline-none rounded text-lg font-bold px-6 py-2">
                 Search
             </button>
         </div>

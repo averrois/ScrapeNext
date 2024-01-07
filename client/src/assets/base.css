@@ -1,7 +1,8 @@
 
 html{
-    background-color: #0D1117;
+    background-color: #05070D;
 }
 body {
+    background-image: radial-gradient(circle, #101e42, #0e1a35, #0d1528, #0b0f1b, #05070d);
     font-family: 'Lato', sans-serif;
 }
