@@ -61,11 +61,10 @@ app.use('/api', async (req: Request, res: Response) => {
   }
 });
 
-const router = express.Router()
+// const router = express.Router()
 
-router.get('/products', async (req: Request, res: Response) => {
-  await res.send(getAllProducts)
-})
+// Check this: https://github.com/elibolonur/ts-express-vue3/blob/main/server/app.ts
+app.use('/products', getAllProducts)
 
 
 // Start the server

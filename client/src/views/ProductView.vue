@@ -5,18 +5,18 @@ import { ref, onMounted } from 'vue'
 
 const products = ref(null)
 
-// const fetchProducts = async () => {
-//     try {
-//         const response = await axios.get('http://localhost:3000/api/products')
-//         products.value = response.data
-//         console.log(products.value)
-//     } catch (error: any) {
-//         console.log(error)
-//         error.value = 'Error fetching products'
-//     }
-// }
+const fetchProducts = async () => {
+    try {
+        const response = await axios.get('http://localhost:3000/api/products')
+        products.value = response.data
+        console.log(products.value)
+    } catch (error: any) {
+        console.log(error)
+        error.value = 'Error fetching products'
+    }
+}
 
-// onMounted(fetchProducts)
+onMounted(fetchProducts)
 
 
 </script>
