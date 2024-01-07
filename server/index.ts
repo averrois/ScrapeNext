@@ -5,6 +5,7 @@ import { connectToDB } from './lib/database';
 import { scrapeAmazonProduct } from './lib/scrape';
 import Product from './lib/database/models/product.model';
 import { getAveragePrice, getHighestPrice, getLowestPrice } from './lib/utils';
+import { getAllProducts } from './lib/controllers/productController';
 
 dotenv.config({ path: '../.env' })
 export const app = express();
@@ -13,10 +14,11 @@ const port = 3000;
 // Enable CORS
 app.use(cors());
 
+// Connect to MongoDB
+connectToDB();
+
 // proxy route
 app.use('/api', async (req: Request, res: Response) => {
-  // Connect to MongoDB
-  connectToDB();
 
   try {
     const url = String(req.query.url); // Pass the URL as a query parameter
@@ -59,7 +61,10 @@ app.use('/api', async (req: Request, res: Response) => {
   }
 });
 
-app.use('/products')
+const router = express.Router()
+
+router.get('/products', getAllProducts)
+
 
 // Start the server
 app.listen(port, () => {
