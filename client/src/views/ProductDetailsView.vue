@@ -3,20 +3,22 @@ import PriceInfoCard from '@/components/PriceInfoCard.vue'
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
-const product = ref(null);
+// const product = ref(null)
+const product = ref(null)
 
 const fetchProductDetails = async () => {
     try {
         // Extract the product ID from the URL
-        const response = await axios.get(`http://localhost:3000/api/products/:id`)
-        product.value = response.data
+        const productId = window.location.pathname.split('/').pop()
+        console.log(productId)
+        const response = await fetch(`http://localhost:3000/api/products/${productId}`)
+        product.value = await response.json()
     } catch (error: any) {
         console.error(error);
         // Handle error...
     }
-};
+}
 
-onMounted(fetchProductDetails);
 
 </script>
 
@@ -40,10 +42,11 @@ onMounted(fetchProductDetails);
                 <h1 class="text-3xl font-bold">Product Name</h1>
                 <div className="my-7 flex flex-col gap-5">
                     <div className="flex gap-5 flex-wrap">
-                        <PriceInfoCard 
+                        <h1>{{ product.title }}</h1>
+                        <!-- <PriceInfoCard 
                             title="Current Price" 
-                            :price="product.currentPrice" 
-                            :currency="product.currency" />
+                            price="product.currentPrice" 
+                            currency="product.currency" /> -->
                     </div>
                 </div>
             </div>
