@@ -6,14 +6,14 @@ import { ref, onMounted } from 'vue'
 const products = ref(null)
 
 const fetchProducts = async () => {
-  try {
-    const response = await axios.get('http://localhost:3000/api/products')
-    products.value = response.data
-    console.log(products.value);
-  } catch (error: any) {
-    console.log(error)
-    // Handle error...
-  }
+    try {
+        const response = await axios.get('http://localhost:3000/api/products')
+        products.value = response.data
+        console.log(products.value);
+    } catch (error: any) {
+        console.log(error)
+        // Handle error...
+    }
 };
 
 onMounted(fetchProducts)
@@ -23,10 +23,6 @@ onMounted(fetchProducts)
 
 <template>
     <div class="md:max-w[1000px] md:p-2 flex flex-wrap justify-around items-center m-auto">
-        <Card />
-        <!-- <ul v-if="products">
-            <li>Nice</li>
-        </ul> -->
-        <!-- <p v-else>Loading products...</p> -->
+        <Card v-for="product in products" :key="product._id" :product="product" />
     </div>
 </template>
