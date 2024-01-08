@@ -32,10 +32,10 @@ const truncateTitle = (title: string, maxLength: number) => {
                     </span>
                 </p>
             </div>
-            <a href="#"
+            <router-link :to="`/products/${product._id}`"
                 class="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
                 Add to cart
-            </a>
+            </router-link>
         </div>
     </div>
 </template>
