@@ -19,10 +19,10 @@ const fetchProductDetails = async () => {
     }
 }
 
-const truncateTitle = (title: string, maxLength: number) => {
-    // if (title.length < maxLength) return ''
-    return title.length > maxLength ? title.substring(0, maxLength) + '...' : title;
-}
+// const truncateTitle = (title: string, maxLength: number) => {
+//     if (title.length < maxLength || title.length ) return ''
+//     return title.length > maxLength ? title.substring(0, maxLength) + '...' : title;
+// }
 
 onMounted(fetchProductDetails)
 
@@ -47,7 +47,7 @@ onMounted(fetchProductDetails)
                 </div> -->
             </div>
             <div>
-                <h1 class="text-3xl font-bold text-white">{{ truncateTitle(product.title, 60) }}</h1>
+                <h1 class="text-3xl font-bold text-white">{{ product?.title }}</h1>
                 <div className="my-7 flex flex-col gap-5">
                     <div className="flex gap-5 flex-wrap">
                         <PriceInfoCard 
