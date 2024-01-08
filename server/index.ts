@@ -30,20 +30,6 @@ app.use('/api', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Missing URL parameter' });
     }
 
-    // if (req.url === '/products') {
-    //   try {
-    //     const response = await getAllProducts;
-    //     res.json(response);
-
-    //     console.log('Response Successed')
-    //   } catch (error: any) {
-    //     res.json(error);
-    //     console.log('Response Faild')
-    //   }
-    // }
-
-    // console.log('Received request:', req.url)
-
     const scrapedProudct = await scrapeAmazonProduct(url, req, res);
 
     if (!scrapedProudct) return;
@@ -77,35 +63,6 @@ app.use('/api', async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
-// const router = express.Router()
-
-// Check this: https://github.com/elibolonur/ts-express-vue3/blob/main/server/app.ts
-// app.use('/products', getAllProducts)
-
-// app.use('/products', (req, res) => {
-//   const data = createSSRApp({
-//     data: () => getAllProducts,
-//   });
-//   res.send(data)
-// });
-
-// const router = express.Router();
-
-// // This router if to get all of the posts (SELECT *)
-// app.use("/products", async (req: Request, res: Response) => {
-//   console.log('get it ')
-//   // try {
-//   //   const response = await getAllProducts;
-//   //   res.json(response);
-
-//   //   console.log('Response Successed')
-//   // } catch (error: any) {
-//   //   res.json(error);
-//   //   console.log('Response Faild')
-//   // }
-// });
-
 
 // Start the server
 app.listen(port, () => {
