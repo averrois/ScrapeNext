@@ -11,13 +11,15 @@ const fetchProductDetails = async () => {
         // Extract the product ID from the URL
         const productId = window.location.pathname.split('/').pop()
         console.log(productId)
-        const response = await fetch(`http://localhost:3000/api/products/${productId}`)
-        product.value = await response.json()
+        const response = await axios.get(`http://localhost:3000/api/products/${productId}`)
+        product.value = await response.data
+        console.log(product.value)
     } catch (error: any) {
         console.error(error);
         // Handle error...
     }
 }
+onMounted(fetchProductDetails)
 
 
 </script>

@@ -33,7 +33,8 @@ app.get('/api/products/:id', async (req: Request, res: Response) => {
       return res.status(404).json({ error: 'Product not found' });
     }
 
-    res.json(product);
+    // res.json(product);
+    return res.status(200).json(product)
   } catch (error: any) {
     console.error('Error:', error.message);
     res.status(500).json({ error: 'Internal server error' });
