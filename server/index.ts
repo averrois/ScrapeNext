@@ -5,7 +5,7 @@ import { connectToDB } from './lib/database';
 import { scrapeAmazonProduct } from './lib/scrape';
 import Product from './lib/database/models/product.model';
 import { getAveragePrice, getHighestPrice, getLowestPrice } from './lib/utils';
-import { getAllProducts } from './lib/controllers/productController';
+import { getAllProducts, getProductById } from './lib/controllers/productController';
 
 dotenv.config({ path: '../.env' })
 export const app = express();
@@ -19,6 +19,26 @@ connectToDB();
 
 app.get('/api/products', getAllProducts);
 
+app.get('/api/products/:id', async (req: Request, res: Response) => {
+  try {
+    const productId = req.params.id;
+
+    if (!productId) {
+      return res.status(400).json({ error: 'Missing product ID parameter' });
+    }
+
+    const product = await getProductById(productId);
+
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    res.json(product);
+  } catch (error: any) {
+    console.error('Error:', error.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 // proxy route
 app.use('/api', async (req: Request, res: Response) => {

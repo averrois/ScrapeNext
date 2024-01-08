@@ -10,3 +10,15 @@ export async function getAllProducts(req: Request, res: Response) {
         res.status(500).send('Error fetching products');
     }
 }
+
+export async function getProductById(productId: string) {
+    try {
+        const product = await Product.findOne({ _id: productId });
+
+        if (!product) return null;
+
+        return product;
+    } catch (error) {
+        console.log(error);
+    }
+}

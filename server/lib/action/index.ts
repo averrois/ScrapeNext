@@ -45,19 +45,19 @@ import Product from "../database/models/product.model";
 //     }
 // }
 
-// export async function getProductById(productId: string) {
-//     try {
-//         connectToDB();
+export async function getProductById(productId: string) {
+    try {
+        connectToDB();
 
-//         const product = await Product.findOne({ _id: productId });
+        const product = await Product.findOne({ _id: productId });
 
-//         if (!product) return null;
+        if (!product) return null;
 
-//         return product;
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
+        return product;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 export async function getAllProducts() {
     try {
