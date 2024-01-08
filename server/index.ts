@@ -6,7 +6,6 @@ import { scrapeAmazonProduct } from './lib/scrape';
 import Product from './lib/database/models/product.model';
 import { getAveragePrice, getHighestPrice, getLowestPrice } from './lib/utils';
 import { getAllProducts } from './lib/controllers/productController';
-import { createSSRApp} from 'vue'
 
 dotenv.config({ path: '../.env' })
 export const app = express();
@@ -18,6 +17,9 @@ app.use(cors());
 // Connect to MongoDB
 connectToDB();
 
+app.get('/api/products', getAllProducts);
+
+
 // proxy route
 app.use('/api', async (req: Request, res: Response) => {
 
@@ -27,6 +29,20 @@ app.use('/api', async (req: Request, res: Response) => {
     if (!url) {
       return res.status(400).json({ error: 'Missing URL parameter' });
     }
+
+    // if (req.url === '/products') {
+    //   try {
+    //     const response = await getAllProducts;
+    //     res.json(response);
+
+    //     console.log('Response Successed')
+    //   } catch (error: any) {
+    //     res.json(error);
+    //     console.log('Response Faild')
+    //   }
+    // }
+
+    // console.log('Received request:', req.url)
 
     const scrapedProudct = await scrapeAmazonProduct(url, req, res);
 
@@ -67,12 +83,28 @@ app.use('/api', async (req: Request, res: Response) => {
 // Check this: https://github.com/elibolonur/ts-express-vue3/blob/main/server/app.ts
 // app.use('/products', getAllProducts)
 
-app.use('/products', (req, res) => {
-  const data = createSSRApp({
-    data: () => getAllProducts,
-  });
-  res.send(data)
-});
+// app.use('/products', (req, res) => {
+//   const data = createSSRApp({
+//     data: () => getAllProducts,
+//   });
+//   res.send(data)
+// });
+
+// const router = express.Router();
+
+// // This router if to get all of the posts (SELECT *)
+// app.use("/products", async (req: Request, res: Response) => {
+//   console.log('get it ')
+//   // try {
+//   //   const response = await getAllProducts;
+//   //   res.json(response);
+
+//   //   console.log('Response Successed')
+//   // } catch (error: any) {
+//   //   res.json(error);
+//   //   console.log('Response Faild')
+//   // }
+// });
 
 
 // Start the server
