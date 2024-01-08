@@ -19,11 +19,6 @@ const fetchProductDetails = async () => {
     }
 }
 
-// const truncateTitle = (title: string, maxLength: number) => {
-//     if (title.length < maxLength || title.length ) return ''
-//     return title.length > maxLength ? title.substring(0, maxLength) + '...' : title;
-// }
-
 onMounted(fetchProductDetails)
 
 
