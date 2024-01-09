@@ -1,9 +1,5 @@
 <script setup lang="ts">
 defineProps(['product'])
-
-const truncateTitle = (title: string, maxLength: number) => {
-    return title.length > maxLength ? title.substring(0, maxLength) + '...' : title;
-}
 </script>
 
 <template>
@@ -18,7 +14,7 @@ const truncateTitle = (title: string, maxLength: number) => {
         </a>
         <div class="mt-4 px-5 pb-5">
             <a href="#">
-                <h5 class="text-xl tracking-tight font-bold text-slate-900">{{ truncateTitle(product.title, 30) }}</h5>
+                <h5 class="text-xl tracking-tight font-bold text-slate-900 truncate">{{ product.title }}</h5>
             </a>
             <div class="mt-2 mb-5 flex items-center justify-between">
                 <p>

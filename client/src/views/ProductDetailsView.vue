@@ -42,7 +42,7 @@ onMounted(fetchProductDetails)
                 </div> -->
             </div>
             <div>
-                <h1 class="text-3xl font-bold text-white">{{ product?.title }}</h1>
+                <h1 class="text-3xl font-bold text-white truncate">{{ product?.title }}</h1>
                 <div className="my-7 flex flex-col gap-5">
                     <div className="flex gap-5 flex-wrap">
                         <PriceInfoCard title="Current Price" :price="product?.currentPrice" :currency="product?.currency" />
