@@ -2,6 +2,7 @@
 import PriceInfoCard from '@/components/PriceInfoCard.vue'
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
+// import type { Product } from '../../../server/lib/types'
 
 // const product = ref(null)
 const product = ref<any | null>(null)
@@ -45,6 +46,30 @@ onMounted(fetchProductDetails)
                 <div className="my-7 flex flex-col gap-5">
                     <div className="flex gap-5 flex-wrap">
                         <PriceInfoCard title="Current Price" :price="product?.currentPrice" :currency="product?.currency" />
+                        <PriceInfoCard 
+                            v-if="product?.discountRate" 
+                            title="Original Price" 
+                            :price="product?.originalPrice"
+                            :currency="product?.currency" 
+                        />
+                        <PriceInfoCard 
+                            v-if="product?.lowestPrice" 
+                            title="Lowest Price" 
+                            :price="product?.lowestPrice"
+                            :currency="product?.currency" 
+                        />
+                        <PriceInfoCard 
+                            v-if="product?.highestPrice" 
+                            title="Highest Price" 
+                            :price="product?.highestPrice"
+                            :currency="product?.currency" 
+                        />
+                        <PriceInfoCard 
+                            v-if="product?.averagePrice" 
+                            title="Average  Price" 
+                            :price="product?.averagePrice"
+                            :currency="product?.currency" 
+                        />
                     </div>
                 </div>
             </div>
