@@ -72,6 +72,8 @@ app.use('/api', async (req: Request, res: Response) => {
         highestPrice: getHighestPrice(updatedPriceHistory),
         averagePrice: getAveragePrice(updatedPriceHistory),
       }
+
+      return res.status(200).json({ message: 'Product already exists', product: existingProduct });
     }
 
     const newProduct = await Product.findOneAndUpdate(
