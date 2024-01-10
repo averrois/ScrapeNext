@@ -3,7 +3,7 @@ import Card from '@/components/Card.vue'
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
 
-const products = ref(null)
+const products = ref<any | null>(null)
 
 const fetchProducts = async () => {
     try {
@@ -14,7 +14,7 @@ const fetchProducts = async () => {
         console.log(error)
         // Handle error...
     }
-};
+}
 
 onMounted(fetchProducts)
 

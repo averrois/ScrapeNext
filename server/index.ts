@@ -72,6 +72,12 @@ app.use('/api', async (req: Request, res: Response) => {
         highestPrice: getHighestPrice(updatedPriceHistory),
         averagePrice: getAveragePrice(updatedPriceHistory),
       }
+
+      // Save the updated product to the database
+      await existingProduct.save();
+
+      // You can also return the updated product in the response if needed
+      return res.status(200).json(existingProduct);
     }
 
     const newProduct = await Product.findOneAndUpdate(

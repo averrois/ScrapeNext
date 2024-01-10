@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { scrapeAndStoreProduct } from '@/lib/actions'
+import { useRouter } from 'vue-router'
 
 const searchPrompt = ref('')
 const isLoading = ref(false)
+const router = useRouter()
 
 const isValidAmazonProductURL = (url: string) => {
     try {
@@ -26,7 +28,6 @@ const isValidAmazonProductURL = (url: string) => {
 
 const handleSubmit = async (e: Event) => {
     e.preventDefault()
-    // console.log(searchPrompt.value)
 
     const isValidLink = isValidAmazonProductURL(searchPrompt.value)
 
@@ -35,18 +36,17 @@ const handleSubmit = async (e: Event) => {
     try {
         isLoading.value = true
 
-        // Scrape the product page
         const product = await scrapeAndStoreProduct(searchPrompt.value)
 
-        searchPrompt.value = ''
+        // Redirect to product details page with the product ID
+        router.push(`/products/${product?._id}`)
+
     } catch (error) {
-        console.log(error);
+        console.error(error);
     } finally {
         isLoading.value = false
     }
 }
-
-
 
 const handleSearchValue = (e: Event) => {
     searchPrompt.value = (e.target as HTMLInputElement).value
