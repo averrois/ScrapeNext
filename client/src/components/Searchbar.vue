@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { scrapeAndStoreProduct } from '@/lib/actions'
 import { useRouter } from 'vue-router'
+import axios from 'axios';
 
 const searchPrompt = ref('')
 const isLoading = ref(false)
@@ -27,25 +28,29 @@ const isValidAmazonProductURL = (url: string) => {
 }
 
 const handleSubmit = async (e: Event) => {
-    e.preventDefault()
+  e.preventDefault();
 
-    const isValidLink = isValidAmazonProductURL(searchPrompt.value)
+  const isValidLink = isValidAmazonProductURL(searchPrompt.value);
 
-    if (!isValidLink) return alert('Please provide a valid Amazon link')
+  if (!isValidLink) {
+    return alert('Please provide a valid Amazon link');
+  }
 
-    try {
-        isLoading.value = true
+  try {
+    isLoading.value = true;
 
-        const product = await scrapeAndStoreProduct(searchPrompt.value)
+    const response = await axios.get(`http://localhost:3000/api?url=${searchPrompt.value}`);
+    const { message, product } = response.data;
 
-        // Redirect to product details page with the product ID
-        router.push(`/products/${product?._id}`)
+    alert(message);
 
-    } catch (error) {
-        console.error(error);
-    } finally {
-        isLoading.value = false
-    }
+    // Redirect to product details page with the product ID
+    router.push(`/products/${product._id}`);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    isLoading.value = false;
+  }
 }
 
 const handleSearchValue = (e: Event) => {
