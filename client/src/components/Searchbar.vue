@@ -44,8 +44,13 @@ const handleSubmit = async (e: Event) => {
 
     alert(message);
 
-    // Redirect to product details page with the product ID
-    router.push(`/products/${product._id}`);
+    // Check if product is defined before accessing its properties
+    if (product) {
+      // Redirect to product details page with the product ID
+      router.push(`/products/${product._id}`);
+    } else {
+      console.error('Product not found or undefined');
+    }
   } catch (error) {
     console.error(error);
   } finally {
