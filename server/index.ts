@@ -72,11 +72,6 @@ app.use('/api', async (req: Request, res: Response) => {
         highestPrice: getHighestPrice(updatedPriceHistory),
         averagePrice: getAveragePrice(updatedPriceHistory),
       }
-
-      // Assuming you have the product details available in the 'product' variable
-      res.status(200).json({ message: 'Product saved successfully', product });
-      // Redirect to the product details page
-      res.redirect(`/products/${product._id}`);
     }
 
     const newProduct = await Product.findOneAndUpdate(
