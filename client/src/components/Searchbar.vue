@@ -37,13 +37,14 @@ const handleSubmit = async (e: Event) => {
         isLoading.value = true
 
         // Scrape the product page
-        const product = await scrapeAndStoreProduct(searchPrompt.value)
+        // const product = await scrapeAndStoreProduct(searchPrompt.value)
 
         const response = await axios.get('http://localhost:3000/api', {
             params: { url: `${searchPrompt.value}` },
         })
 
-        console.log(response.data._id)
+        // console.log(response.data)
+        console.log('Server response:', response)
 
         searchPrompt.value = ''
     } catch (error) {

@@ -6,7 +6,7 @@ import { scrapeAmazonProduct } from './lib/scrape';
 import Product from './lib/database/models/product.model';
 import { getAveragePrice, getHighestPrice, getLowestPrice } from './lib/utils';
 import { getAllProducts, getProductById } from './lib/controllers/productController';
-import { Product as ProductType }  from './lib/types';
+import { Product as ProductType } from './lib/types';
 
 dotenv.config({ path: '../.env' })
 export const app = express();
@@ -74,8 +74,11 @@ app.use('/api', async (req: Request, res: Response) => {
         averagePrice: getAveragePrice(updatedPriceHistory),
       }
 
-      console.log(existingProduct._id)
-      return res.status(200).send(existingProduct._id);
+      await existingProduct.updateOne(product);
+
+      // Return the existing product's _id
+      console.log(existingProduct._id);
+      return res.status(200).json({ _id: existingProduct._id });
     }
 
     const newProduct = await Product.findOneAndUpdate(
@@ -84,8 +87,9 @@ app.use('/api', async (req: Request, res: Response) => {
       { upsert: true, new: true }
     );
 
-    console.log(newProduct._id)
-    return res.status(200).send(newProduct._id);
+    // Return the new product's _id
+    console.log(newProduct._id);
+    return res.status(200).json({ _id: newProduct._id });
   } catch (error: any) {
     console.error('Error:', error.message);
     res.status(500).json({ error: 'Internal server error' });
