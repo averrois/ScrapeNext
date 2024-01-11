@@ -6,6 +6,7 @@ import { scrapeAmazonProduct } from './lib/scrape';
 import Product from './lib/database/models/product.model';
 import { getAveragePrice, getHighestPrice, getLowestPrice } from './lib/utils';
 import { getAllProducts, getProductById } from './lib/controllers/productController';
+import { Product as ProductType }  from './lib/types';
 
 dotenv.config({ path: '../.env' })
 export const app = express();
@@ -73,7 +74,8 @@ app.use('/api', async (req: Request, res: Response) => {
         averagePrice: getAveragePrice(updatedPriceHistory),
       }
 
-      return res.status(200).json({ message: 'Product already exists', product: existingProduct });
+      console.log(existingProduct._id)
+      return res.status(200).send(existingProduct._id);
     }
 
     const newProduct = await Product.findOneAndUpdate(
@@ -81,6 +83,9 @@ app.use('/api', async (req: Request, res: Response) => {
       product,
       { upsert: true, new: true }
     );
+
+    console.log(newProduct._id)
+    return res.status(200).send(newProduct._id);
   } catch (error: any) {
     console.error('Error:', error.message);
     res.status(500).json({ error: 'Internal server error' });
