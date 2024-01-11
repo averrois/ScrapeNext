@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { scrapeAndStoreProduct } from '@/lib/actions'
-import axios from 'axios';
+import { useRouter } from 'vue-router'
+import axios from 'axios'
 
 const searchPrompt = ref('')
 const isLoading = ref(false)
+const router = useRouter()
 
 const isValidAmazonProductURL = (url: string) => {
     try {
@@ -44,7 +46,10 @@ const handleSubmit = async (e: Event) => {
         })
 
         // console.log(response.data)
-        console.log('Server response:', response)
+        const productId = await response.data._id
+
+        // Redirect to the product page
+        router.push(`/products/${productId}`)
 
         searchPrompt.value = ''
     } catch (error) {

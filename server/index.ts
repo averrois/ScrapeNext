@@ -6,7 +6,6 @@ import { scrapeAmazonProduct } from './lib/scrape';
 import Product from './lib/database/models/product.model';
 import { getAveragePrice, getHighestPrice, getLowestPrice } from './lib/utils';
 import { getAllProducts, getProductById } from './lib/controllers/productController';
-import { Product as ProductType } from './lib/types';
 
 dotenv.config({ path: '../.env' })
 export const app = express();
@@ -77,7 +76,6 @@ app.use('/api', async (req: Request, res: Response) => {
       await existingProduct.updateOne(product);
 
       // Return the existing product's _id
-      console.log(existingProduct._id);
       return res.status(200).json({ _id: existingProduct._id });
     }
 
@@ -88,7 +86,6 @@ app.use('/api', async (req: Request, res: Response) => {
     );
 
     // Return the new product's _id
-    console.log(newProduct._id);
     return res.status(200).json({ _id: newProduct._id });
   } catch (error: any) {
     console.error('Error:', error.message);

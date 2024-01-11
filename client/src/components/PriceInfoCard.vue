@@ -24,7 +24,7 @@ defineProps({
         <div class="flex gap-1">
             <img src="../assets/icons/price-tag.svg" alt="test" width="24" height="24" />
 
-            <p class="text-2xl font-bold text-white">{{ currency }} {{ price }}</p>
+            <p class="text-2xl font-bold text-white">{{ currency }} {{ price.toFixed(3) }}</p>
         </div>
     </div>
 </template>

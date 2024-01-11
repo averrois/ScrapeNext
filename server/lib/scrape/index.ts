@@ -24,7 +24,6 @@ export async function scrapeAmazonProduct(url: string, req: Request, res: Respon
         };
 
         const brightDataResponse = await axios.get(url, options);
-        res.json(brightDataResponse.data);
 
         // Handle the response as needed
 
