@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { scrapeAndStoreProduct } from '@/lib/actions'
-import { useRouter } from 'vue-router'
-import axios from 'axios';
 
 const searchPrompt = ref('')
 const isLoading = ref(false)
-const router = useRouter()
 
 const isValidAmazonProductURL = (url: string) => {
     try {
@@ -28,35 +25,28 @@ const isValidAmazonProductURL = (url: string) => {
 }
 
 const handleSubmit = async (e: Event) => {
-  e.preventDefault();
+    e.preventDefault()
+    // console.log(searchPrompt.value)
 
-  const isValidLink = isValidAmazonProductURL(searchPrompt.value);
+    const isValidLink = isValidAmazonProductURL(searchPrompt.value)
 
-  if (!isValidLink) {
-    return alert('Please provide a valid Amazon link');
-  }
+    if (!isValidLink) return alert('Please provide a valid Amazon link')
 
-  try {
-    isLoading.value = true;
+    try {
+        isLoading.value = true
 
-    const response = await axios.get(`http://localhost:3000/api?url=${searchPrompt.value}`);
-    const { message, product } = response.data;
+        // Scrape the product page
+        const product = await scrapeAndStoreProduct(searchPrompt.value)
 
-    alert(message);
-
-    // Check if product is defined before accessing its properties
-    if (product) {
-      // Redirect to product details page with the product ID
-      router.push(`/products/${product._id}`);
-    } else {
-      console.error('Product not found or undefined');
+        searchPrompt.value = ''
+    } catch (error) {
+        console.log(error);
+    } finally {
+        isLoading.value = false
     }
-  } catch (error) {
-    console.error(error);
-  } finally {
-    isLoading.value = false;
-  }
 }
+
+
 
 const handleSearchValue = (e: Event) => {
     searchPrompt.value = (e.target as HTMLInputElement).value
