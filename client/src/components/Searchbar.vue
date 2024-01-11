@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { scrapeAndStoreProduct } from '@/lib/actions'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 
@@ -29,7 +28,6 @@ const isValidAmazonProductURL = (url: string) => {
 
 const handleSubmit = async (e: Event) => {
     e.preventDefault()
-    // console.log(searchPrompt.value)
 
     const isValidLink = isValidAmazonProductURL(searchPrompt.value)
 
@@ -37,9 +35,6 @@ const handleSubmit = async (e: Event) => {
 
     try {
         isLoading.value = true
-
-        // Scrape the product page
-        // const product = await scrapeAndStoreProduct(searchPrompt.value)
 
         const response = await axios.get('http://localhost:3000/api', {
             params: { url: `${searchPrompt.value}` },
@@ -115,8 +110,6 @@ const handleSearchValue = (e: Event) => {
     z-index: 1;
     backdrop-filter: blur(5px);
 }
-
-
 
 .content {
     width: 100%;
@@ -243,5 +236,4 @@ const handleSearchValue = (e: Event) => {
         width: 16px;
     }
 }
-
 </style>
