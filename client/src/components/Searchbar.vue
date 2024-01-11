@@ -69,6 +69,9 @@ const handleSearchValue = (e: Event) => {
 </script>
 
 <template>
+    <div class="absolute w-full h-full z-20 bg-black left-0 top-0 flex justify-center items-center blur-sm opacity-60" >
+        <div :class="{ 'absolute z-30  animate-spin h-24 w-24 rounded-full border-t-4 border-blue-500': true }"/>
+    </div>
     <form @submit="handleSubmit">
         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
         <div class="relative">
