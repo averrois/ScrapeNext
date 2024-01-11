@@ -69,8 +69,18 @@ const handleSearchValue = (e: Event) => {
 </script>
 
 <template>
-    <div class="absolute w-full h-full z-20 bg-black left-0 top-0 flex justify-center items-center blur-sm opacity-60" >
-        <div :class="{ 'absolute z-30  animate-spin h-24 w-24 rounded-full border-t-4 border-blue-500': true }"/>
+    <div class="absolute w-full h-full z-20 left-0 top-0 flex justify-center items-center">
+        <div class="loader z-10">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
     <form @submit="handleSubmit">
         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -93,3 +103,193 @@ const handleSearchValue = (e: Event) => {
         </div>
     </form>
 </template>
+
+<style scoped>
+.load_container {
+    backdrop-filter: blur(10px);
+}
+
+.loader::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.562);
+    /* Adjust the darkness level here */
+    z-index: 1;
+}
+
+.loader {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 8px;
+}
+
+.loader div {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #66cdaa;
+    border-radius: 50%;
+}
+
+.loader div:before,
+.loader div:after {
+    content: '';
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.loader div:before {
+    background-color: #ffdab9;
+    animation: scale-1 2400ms linear infinite;
+}
+
+.loader div:after {
+    background-color: #66cdaa;
+    animation: scale-2 2400ms linear infinite;
+}
+
+.loader div:nth-child(2):before,
+.loader div:nth-child(2):after {
+    animation-delay: 300ms;
+}
+
+.loader div:nth-child(3):before,
+.loader div:nth-child(3):after {
+    animation-delay: 600ms;
+}
+
+.loader div:nth-child(4):before,
+.loader div:nth-child(4):after {
+    animation-delay: 900ms;
+}
+
+.loader div:nth-child(5):before,
+.loader div:nth-child(5):after {
+    animation-delay: 1200ms;
+}
+
+.loader div:nth-child(6):before,
+.loader div:nth-child(6):after {
+    animation-delay: 1500ms;
+}
+
+.loader div:nth-child(7):before,
+.loader div:nth-child(7):after {
+    animation-delay: 1800ms;
+}
+
+.loader div:nth-child(8):before,
+.loader div:nth-child(8):after {
+    animation-delay: 2100ms;
+}
+
+.loader div:nth-child(9):before,
+.loader div:nth-child(9):after {
+    animation-delay: 2400ms;
+}
+
+@-moz-keyframes scale-1 {
+    0% {
+        transform: scale(0);
+        z-index: 2;
+    }
+
+    50%,
+    100% {
+        transform: scale(1);
+    }
+}
+
+@-webkit-keyframes scale-1 {
+    0% {
+        transform: scale(0);
+        z-index: 2;
+    }
+
+    50%,
+    100% {
+        transform: scale(1);
+    }
+}
+
+@-o-keyframes scale-1 {
+    0% {
+        transform: scale(0);
+        z-index: 2;
+    }
+
+    50%,
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes scale-1 {
+    0% {
+        transform: scale(0);
+        z-index: 2;
+    }
+
+    50%,
+    100% {
+        transform: scale(1);
+    }
+}
+
+@-moz-keyframes scale-2 {
+
+    0%,
+    50% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@-webkit-keyframes scale-2 {
+
+    0%,
+    50% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@-o-keyframes scale-2 {
+
+    0%,
+    50% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes scale-2 {
+
+    0%,
+    50% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}</style>
