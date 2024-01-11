@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { scrapeAndStoreProduct } from '@/lib/actions'
+import axios from 'axios';
 
 const searchPrompt = ref('')
 const isLoading = ref(false)
@@ -38,6 +39,12 @@ const handleSubmit = async (e: Event) => {
         // Scrape the product page
         const product = await scrapeAndStoreProduct(searchPrompt.value)
 
+        const response = await axios.get('http://localhost:3000/api', {
+            params: { url: `${searchPrompt.value}` },
+        })
+
+        console.log(response.data._id)
+
         searchPrompt.value = ''
     } catch (error) {
         console.log(error);
@@ -70,7 +77,8 @@ const handleSearchValue = (e: Event) => {
                 class="block w-full p-4 ps-10 text-lg text-gray-900 border border-gray-300 rounded bg-gray-50  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                 placeholder="paste url here..." required v-model="searchPrompt" @input="handleSearchValue" />
             <button type="submit" :disabled="isLoading"
-                class="text-white absolute end-2.5 bottom-2.5 bg-primary focus:outline-none rounded text-lg font-bold px-6 py-2" :class="{ 'bg-black-300': isLoading }">
+                class="text-white absolute end-2.5 bottom-2.5 bg-primary focus:outline-none rounded text-lg font-bold px-6 py-2"
+                :class="{ 'bg-black-300': isLoading }">
                 {{ isLoading ? 'Searching...' : 'Search' }}
             </button>
         </div>
