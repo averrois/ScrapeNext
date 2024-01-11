@@ -59,12 +59,9 @@ const handleSubmit = async (e: Event) => {
     }
 }
 
-
-
 const handleSearchValue = (e: Event) => {
     searchPrompt.value = (e.target as HTMLInputElement).value
 }
-
 
 </script>
 
