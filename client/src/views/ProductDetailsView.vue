@@ -42,7 +42,8 @@ onMounted(fetchProductDetails)
                 </div> -->
             </div>
             <div>
-                <h1 class="text-3xl font-bold text-white truncate mb-4">{{ product?.title }}</h1>
+                <h1 class="text-3xl font-bold text-white mb-4">{{ product?.title }}</h1>
+                <a :href="product?.url" class="text-lg w-fit font-medium block mb-4 text-white-800" target="_blank">Visit Product</a>
                 <div class="flex flex-wrap gap-5">
                     <PriceInfoCard title="Current Price" :price="product?.currentPrice" :currency="product?.currency" />
                     <PriceInfoCard v-if="product?.discountRate" title="Original Price" :price="product?.originalPrice"
