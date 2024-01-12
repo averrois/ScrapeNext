@@ -32,9 +32,7 @@ onMounted(fetchProductDetails)
 </script>
 
 <template>
-    <template v-if="isActive">
-        <Model />
-    </template>
+    <Model :isClose="isActive" />
     <!-- <div v-if="isActive" class="absolute w-full h-full z-20 left-0 top-0 flex justify-center items-center">
         <div class="blur_bg"></div>
         <div class="fixed inset-0 flex items-center justify-center z-50 m-6" :class="{'hidden': isClose}">
