@@ -2,10 +2,12 @@
 import PriceInfoCard from '@/components/PriceInfoCard.vue'
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
+import Model from '@/components/Model.vue';
 // import type { Product } from '../../../server/lib/types'
 
 // const product = ref(null)
 const product = ref<any | null>(null)
+const isActive = ref(false)
 
 const fetchProductDetails = async () => {
     try {
@@ -20,12 +22,20 @@ const fetchProductDetails = async () => {
     }
 }
 
+const handleClick = () => {
+    isActive.value = true
+}
+
 onMounted(fetchProductDetails)
 
 
 </script>
 
 <template>
+    <div v-if="isActive" class="absolute w-full h-full z-20 left-0 top-0 flex justify-center items-center">
+        <div class="blur_bg"></div>
+        <Model />
+    </div>
     <section class="container mx-auto px-4 md:px-6 py-8">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
             <div>
@@ -56,10 +66,29 @@ onMounted(fetchProductDetails)
                     <PriceInfoCard v-if="product?.averagePrice" title="Average  Price" :price="product?.averagePrice"
                         :currency="product?.currency" />
                 </div>
-                <button class="bg-primary hover:bg-blue-500 text-white  text-xl font-medium w-full py-2.5 px-4 rounded-full">
+                <button
+                    class="bg-primary hover:bg-blue-500 text-white  text-xl font-medium w-full py-2.5 px-4 rounded-full" 
+                    @click="handleClick"
+                    >
                     Track
                 </button>
             </div>
         </div>
     </section>
 </template>
+
+<style scoped>
+.blur_bg {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.562);
+    /* Adjust the darkness level here */
+    z-index: 1;
+    backdrop-filter: blur(5px);
+}
+</style>
