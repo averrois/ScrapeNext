@@ -43,8 +43,9 @@ onMounted(fetchProductDetails)
             </div>
             <div>
                 <h1 class="text-3xl font-bold text-white mb-4">{{ product?.title }}</h1>
-                <a :href="product?.url" class="text-lg w-fit font-medium block mb-4 text-white-800" target="_blank">Visit Product</a>
-                <div class="flex flex-wrap gap-5">
+                <a :href="product?.url" class="text-lg w-fit font-medium block mb-4 text-white-800" target="_blank">Visit
+                    Product</a>
+                <div class="flex flex-wrap gap-5 mb-4">
                     <PriceInfoCard title="Current Price" :price="product?.currentPrice" :currency="product?.currency" />
                     <PriceInfoCard v-if="product?.discountRate" title="Original Price" :price="product?.originalPrice"
                         :currency="product?.currency" />
@@ -55,6 +56,9 @@ onMounted(fetchProductDetails)
                     <PriceInfoCard v-if="product?.averagePrice" title="Average  Price" :price="product?.averagePrice"
                         :currency="product?.currency" />
                 </div>
+                <button class="bg-primary hover:bg-blue-500 text-white  text-xl font-medium w-full py-2.5 px-4 rounded-full">
+                    Track
+                </button>
             </div>
         </div>
     </section>
