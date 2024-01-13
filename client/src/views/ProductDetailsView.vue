@@ -2,10 +2,8 @@
 import PriceInfoCard from '@/components/PriceInfoCard.vue'
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
-import Model from '@/components/Model.vue';
-// import type { Product } from '../../../server/lib/types'
+import Model from '@/components/Model.vue'
 
-// const product = ref(null)
 const product = ref<any | null>(null)
 const isActive = ref(false)
 
@@ -13,11 +11,10 @@ const fetchProductDetails = async () => {
     try {
         // Extract the product ID from the URL
         const productId = window.location.pathname.split('/').pop()
-        console.log(productId)
         const response = await axios.get(`http://localhost:3000/api/products/${productId}`)
         product.value = await response.data
     } catch (error: any) {
-        console.error(error);
+        console.error(error)
         // Handle error...
     }
 }

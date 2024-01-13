@@ -1,9 +1,8 @@
 <script setup lang="ts">
-
-const props = defineProps({
+defineProps({
     isClose: {
         type: Boolean,
-        default: false,
+        default: true,
     }
 })
 
