@@ -11,6 +11,7 @@ const emit = defineEmits(['close'])
 function closeModal() {
   emit('close')
 }
+
 </script>
 
 <template>
@@ -57,7 +58,7 @@ function closeModal() {
 .blur_bg {
     content: '';
     display: block;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
