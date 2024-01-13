@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Product from "../database/models/product.model";
+import { User } from '../types';
 
 export async function getAllProducts(req: Request, res: Response) {
     try {
@@ -19,6 +20,24 @@ export async function getProductById(productId: string) {
 
         return product;
     } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function addUserEmailToProduct(productId: string, userEmail: string) {
+    try {
+        const product = await Product.findById(productId);
+
+        if (!product) return;
+
+        const userExists = product.users.some((user: User) => user.email === userEmail);
+
+        if (!userExists) {
+            product.users.push({ email: userEmail });
+
+            await product.save();
+        }
+    } catch (error: any) {
         console.log(error);
     }
 }
