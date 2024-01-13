@@ -1,21 +1,26 @@
 <script setup lang="ts">
+
 defineProps({
     isClose: {
         type: Boolean,
-        default: true,
     }
 })
 
+const emit = defineEmits(['close'])
+
+function closeModal() {
+  emit('close')
+}
 </script>
 
 <template>
-    <div  v-if="isClose" class="absolute w-full h-full z-20 left-0 top-0 flex justify-center items-center">
+    <div v-if="!isClose" class="absolute w-full h-full z-20 left-0 top-0 flex justify-center items-center">
         <div class="blur_bg"></div>
         <div class="fixed inset-0 flex items-center justify-center z-50 m-6" :class="{ 'hidden': isClose }">
             <div class="bg-black-200 border-black-300 border-2 rounded-lg shadow-lg p-6 w-full max-w-md mx-auto">
                 <div class="flex justify-between items-center">
                     <h2 class="text-white text-2xl font-bold">Track This Product!</h2>
-                    <button @click="!isClose"
+                    <button  @click="closeModal"
                         class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

@@ -5,7 +5,7 @@ import axios from 'axios'
 import Model from '@/components/Model.vue'
 
 const product = ref<any | null>(null)
-const isActive = ref(false)
+const isActive = ref(true)
 
 const fetchProductDetails = async () => {
     try {
@@ -20,7 +20,12 @@ const fetchProductDetails = async () => {
 }
 
 const handleClick = () => {
-    isActive.value = true
+    isActive.value = !isActive.value
+    console.log(isActive.value)
+}
+const handleClose = () => {
+    console.log('cliecked')
+    // isActive.value = !isActive.value
 }
 
 onMounted(fetchProductDetails)
@@ -29,7 +34,7 @@ onMounted(fetchProductDetails)
 </script>
 
 <template>
-    <Model :isClose="isActive" />
+    <Model :isClose="isActive" @close="handleClick"/>
     <!-- <div v-if="isActive" class="absolute w-full h-full z-20 left-0 top-0 flex justify-center items-center">
         <div class="blur_bg"></div>
         <div class="fixed inset-0 flex items-center justify-center z-50 m-6" :class="{'hidden': isClose}">
@@ -96,10 +101,8 @@ onMounted(fetchProductDetails)
                     <PriceInfoCard v-if="product?.averagePrice" title="Average  Price" :price="product?.averagePrice"
                         :currency="product?.currency" />
                 </div>
-                <button
-                    class="bg-primary hover:bg-blue-500 text-white  text-xl font-medium w-full py-2.5 px-4 rounded-full" 
-                    @click="handleClick"
-                    >
+                <button class="bg-primary hover:bg-blue-500 text-white  text-xl font-medium w-full py-2.5 px-4 rounded-full"
+                    @click="handleClick">
                     Track
                 </button>
             </div>
