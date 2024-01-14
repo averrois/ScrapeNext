@@ -41,6 +41,35 @@ app.get('/api/products/:id', async (req: Request, res: Response) => {
   }
 });
 
+app.get('/api/products/:id/:email', async (req: Request, res: Response) => {
+  try {
+    const productId = req.params.id;
+    const email = req.params.email;
+
+    // Add a debugger statement here
+    debugger;
+
+    if (!productId || email) {
+      return res.status(400).json({ error: 'Missing an parameter' });
+    }
+
+    const product = await getProductById(productId);
+
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    if (email) {
+      console.log(email);
+    }
+
+    return res.status(200).json(product);
+  } catch (error: any) {
+    console.error('Error:', error.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // proxy route
 app.use('/api', async (req: Request, res: Response) => {
 
