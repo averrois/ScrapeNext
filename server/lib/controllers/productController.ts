@@ -39,5 +39,6 @@ export async function addUserEmailToProduct(productId: string, userEmail: string
         }
     } catch (error: any) {
         console.log(error);
+        return null;
     }
 }

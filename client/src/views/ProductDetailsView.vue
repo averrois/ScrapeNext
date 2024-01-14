@@ -21,7 +21,6 @@ const fetchProductDetails = async () => {
 
 const handleClick = () => {
     isActive.value = !isActive.value
-    console.log(isActive.value)
 }
 onMounted(fetchProductDetails)
 
