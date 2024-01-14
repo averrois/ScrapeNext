@@ -3,6 +3,7 @@ import axios from 'axios'
 import { ref } from 'vue'
 
 const emailAddress = ref('')
+const isLoading = ref(false)
 
 defineProps({
     isClose: {
@@ -14,10 +15,6 @@ const emit = defineEmits(['close'])
 
 function closeModal() {
     emit('close')
-}
-
-const handleEmailValue = (e: Event) => {
-    emailAddress.value = (e.target as HTMLInputElement).value
 }
 
 const handleSubmit = async (e: Event) => {
