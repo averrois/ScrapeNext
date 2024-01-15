@@ -83,10 +83,10 @@ export async function generateEmailBody(
 }
 
 const transporter = nodemailer.createTransport({
-  pool: true,
-  host: 'smtp-mail.outlook.com',
-  port: 587,
-  secure: false,
+  host: "smtp.zoho.com",
+  service: 'zoho',
+  port: 465,
+  secure: true, // use SSL
   auth: {
     user: process.env.VITE_EMAIL_ADDRESS,
     pass: process.env.VITE_EMAIL_PASS,
@@ -104,7 +104,6 @@ export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) =>
   transporter.sendMail(mailOptions, (error: any, info: any) => {
     if (error) {
       console.error('Error sending email:', error);
-      console.log('Email options:', mailOptions);
     } else {
       console.log('Email sent:', info);
     }
