@@ -1,5 +1,9 @@
 import { EmailContent, EmailProductInfo, NotificationType } from "../types";
 import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: '../../../.env' })
+
 
 const Notification = {
   WELCOME: 'WELCOME',
@@ -83,15 +87,15 @@ const transporter = nodemailer.createTransport({
   service: 'hotmail',
   port: 2525,
   auth: {
-    user: 'scrape.next@hotmail.com',
-    pass: process.env.EMAIL_PASSWORD,
+    user: process.env.VITE_EMAIL_ADDRESS,
+    pass: process.env.VITE_EMAIL_PASS,
   },
   maxConnections: 1
 })
 
 export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) => {
   const mailOptions = {
-    from: 'javascriptmastery@outlook.com',
+    from: process.env.VITE_EMAIL_ADDRESS,
     to: sendTo,
     html: emailContent.body,
     subject: emailContent.subject,

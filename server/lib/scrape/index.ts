@@ -9,7 +9,7 @@ export async function scrapeAmazonProduct(url: string, req: Request, res: Respon
     try {
         // Config bright data proxy
         const username = process.env.VITE_BRIGHT_DATA_USERNAME;
-        const password = process.env.VITE_BRIGHT_DATA_PASSWORD;;
+        const password = process.env.VITE_BRIGHT_DATA_PASSWORD;
         const port = 22225;
         const session_id = (1000000 * Math.random()) | 0;
 
