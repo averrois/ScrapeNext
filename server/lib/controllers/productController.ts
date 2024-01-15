@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Product from "../database/models/product.model";
 import { User } from '../types';
+import { generateEmailBody, sendEmail } from '../nodemailer';
 
 export async function getAllProducts(req: Request, res: Response) {
     try {
@@ -36,9 +37,12 @@ export async function addUserEmailToProduct(productId: string, userEmail: string
             product.users.push({ email: userEmail });
 
             await product.save();
+
+            const emailContent = await generateEmailBody(product, "WELCOME");
+
+            await sendEmail(emailContent, [userEmail]);
         }
     } catch (error: any) {
         console.log(error);
-        return null;
     }
 }
