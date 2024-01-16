@@ -105,6 +105,7 @@ export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) =>
   }
 
   transporter.sendMail(mailOptions, (error: any, info: any) => {
+    console.log(process.env.VITE_EMAIL_PASS)
     if (error) {
       console.error('Error sending email:', error);
     } else {
