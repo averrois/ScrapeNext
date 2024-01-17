@@ -3,7 +3,7 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { extractCurrency, extractPrice } from "../utils"
 
-export async function scrapeAmazonProduct(url: string, req: Request, res: Response) {
+export async function scrapeAmazonProduct(url: string, req?: Request, res?: Response) {
     if (!url) return;
 
     try {
@@ -89,6 +89,6 @@ export async function scrapeAmazonProduct(url: string, req: Request, res: Respon
         return data;
     } catch (error: any) {
         console.error('Error:', error.message);
-        res.status(500).json({ error: 'Internal server error' });
+        res?.status(500).json({ error: 'Internal server error' });
     }
 }
