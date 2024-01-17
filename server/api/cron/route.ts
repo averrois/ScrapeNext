@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request } from 'express';
 import Product from "../../lib/database/models/product.model";
 import { generateEmailBody, sendEmail } from "../../lib/nodemailer";
 import { scrapeAmazonProduct } from "../../lib/scrape";
@@ -15,7 +15,7 @@ export async function GET(request: Request) {
 
     if (!products) throw new Error("No product fetched");
 
-    // ======================== 1 SCRAPE LATEST PRODUCT DETAILS & UPDATE DB
+    // 1- SCRAPE LATEST PRODUCT DETAILS & UPDATE DB
     const updatedProducts = await Promise.all(
       products.map(async (currentProduct) => {
       
@@ -47,7 +47,7 @@ export async function GET(request: Request) {
           product
         );
 
-        // ======================== 2 CHECK EACH PRODUCT'S STATUS & SEND EMAIL ACCORDINGLY
+        // 2- CHECK EACH PRODUCT'S STATUS & SEND EMAIL ACCORDINGLY
         const emailNotifType = getEmailNotifType(
           scrapedProduct,
           currentProduct
