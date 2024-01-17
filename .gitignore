@@ -16,6 +16,9 @@ coverage
 
 .env
 
+.vite
+.vscode
+
 /cypress/videos/
 /cypress/screenshots/
 
