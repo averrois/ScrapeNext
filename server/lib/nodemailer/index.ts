@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: '../../../.env' })
 
-
 const Notification = {
   WELCOME: 'WELCOME',
   CHANGE_OF_STOCK: 'CHANGE_OF_STOCK',
@@ -38,7 +37,7 @@ export async function generateEmailBody(
               <h3>${product.title} is back in stock!</h3>
               <p>We're excited to let you know that ${product.title} is now back in stock.</p>
               <p>Don't miss out - <a href="${product.url}" target="_blank" rel="noopener noreferrer">buy it now</a>!</p>
-              <img src="https://i.ibb.co/pwFBRMC/Screenshot-2023-09-26-at-1-47-50-AM.png" alt="Product Image" style="max-width: 100%;" />
+              <img src="https://i.ibb.co/gMrBY2d/img.png" alt="Product Image" style="max-width: 100%;" />
             </div>
             <p>Stay tuned for more updates on ${product.title} and other products you're tracking.</p>
           </div>
@@ -82,20 +81,26 @@ export async function generateEmailBody(
   return { subject, body };
 }
 
-const transporter = nodemailer.createTransport({
-  pool: true,
-  host: 'smtp.zoho.com',
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.VITE_EMAIL_ADDRESS,
-    pass: process.env.VITE_EMAIL_PASS,
-  }
-});
+async function createTransporter() {
+  const transporter = nodemailer.createTransport({
+    pool: true,
+    host: 'smtp.zoho.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: "scrapenext@zohomail.com",
+      pass: process.env.EMAIL_PASS,
+    },
+    maxConnections: 1
+  });
+  return transporter;
+}
+
 
 export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) => {
+  const transporter = await createTransporter();
   const mailOptions = {
-    from: process.env.VITE_EMAIL_ADDRESS,
+    from: "scrapenext@zohomail.com",
     to: sendTo,
     html: emailContent.body,
     subject: emailContent.subject,

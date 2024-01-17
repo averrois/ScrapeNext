@@ -51,7 +51,6 @@ app.post('/api/products/:id/:email', async (req: Request, res: Response) => {
     }
 
     const data = await addUserEmailToProduct(productId, email);
-    console.log(data)
     return res.status(200).json(data);
   } catch (error: any) {
     console.error('Error:', error.message);
