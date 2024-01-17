@@ -36,7 +36,7 @@ const handleSubmit = async (e: Event) => {
     try {
         isLoading.value = true
 
-        const response = await axios.get('http://localhost:3000/api', {
+        const response = await axios.get('/api', {
             params: { url: `${searchPrompt.value}` },
         })
 

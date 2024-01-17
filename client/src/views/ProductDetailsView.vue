@@ -11,7 +11,7 @@ const fetchProductDetails = async () => {
     try {
         // Extract the product ID from the URL
         const productId = window.location.pathname.split('/').pop()
-        const response = await axios.get(`http://localhost:3000/api/products/${productId}`)
+        const response = await axios.get(`/api/products/${productId}`)
         product.value = await response.data
     } catch (error: any) {
         console.error(error)
