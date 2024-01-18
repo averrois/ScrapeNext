@@ -73,14 +73,14 @@ const handleSubmit = async (e: Event) => {
     <form class="flex space-x-2" @submit="handleSubmit">
       <input
         type="text"
-        class="flex h-10 w-full rounded-md border px-3 py-2 text-medium ring-offset-background file:border-0 file:bg-transparent file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 max-w-lg flex-1 bg-gray-800 text-white border-gray-900"
+        class="flex h-14 w-full rounded-md border px-6 truncate py-2 text-lg ring-offset-background file:border-0 file:bg-transparent placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 max-w-lg flex-1 bg-gray-800 text-white border-gray-900"
         placeholder="paste url here..."
         required
         v-model="searchPrompt"
       />
       <button
         :disabled="isLoading"
-        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-medium font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-800/90 hover:text-white h-10 px-4 py-2 bg-white text-black"
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-lg font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-800/90 hover:text-white h-14 px-6 py-2 bg-white text-black"
         type="submit"
         :class="{ 'bg-black-300': isLoading }"
       >
