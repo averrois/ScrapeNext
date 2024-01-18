@@ -1,19 +1,12 @@
-install-dependencies: install-bun
-	cd client && bun install
-	cd server && bun install
+# Install dependencies
+install-dependencies:
+	cd client && npm install
+	cd server && npm install
 
-run-development: install-dependencies
-	# Use production build for client-side
-	cd client && bun build
-
-	# Gracefully terminate server-side after a delay
-	cd server && bun index.ts & sleep 10 && pkill bun
-
+# Deploy server-side code (adjust based on your chosen platform)
 deploy: install-dependencies
-	# Generate production-ready client-side build
-	cd client && bun build
+	# Build server bundle (e.g., npm run build:prod)
+	# Deploy built bundle to Netlify functions directory
+	# Set necessary environment variables for Netlify
 
-	# Deploy server-side code (adjust as needed)
-	# Options: Netlify Functions, container deployment, etc.
-
-.PHONY: install-bun install-dependencies run-development deploy
+.PHONY: install-dependencies deploy
