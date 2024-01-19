@@ -80,7 +80,7 @@ const handleSubmit = async (e: Event) => {
       />
       <button
         :disabled="isLoading"
-        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-lg font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-800/90 hover:text-white h-14 px-6 py-2 bg-white text-black"
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-lg font-medium ring-offset-background transition-colorsdisabled:pointer-events-none disabled:opacity-50 hover:bg-gray-800/90 hover:text-white h-14 px-6 py-2 bg-white text-black"
         type="submit"
         :class="{ 'bg-black-300': isLoading }"
       >
