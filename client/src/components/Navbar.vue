@@ -11,7 +11,7 @@ const isOpen = ref(false)
   <header class="md:mb-8 py-4 px-4 flex justify-between items-center select-none max-w-10xl text-white-800">
     <div class="text-2xl font-semibold flex justify-between items-center">
       <RouterLink to="/" class="logo">
-        Logo
+        ScrapeNext
       </RouterLink>
     </div>
 
@@ -38,7 +38,7 @@ const isOpen = ref(false)
   </header>
 
   <!-- Mobile Links -->
-  <div class="bg-black-200 px-4 py-4 select-none  md:hidden" v-if="isOpen">
+  <div class="bg-grey-100 px-4 py-4 select-none  md:hidden" v-if="isOpen">
     <NavbarLink href="/" link="Home" />
     <NavbarLink href="/products" link="Products" />
   </div>

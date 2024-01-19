@@ -15,7 +15,7 @@ defineProps({
 </script>
 
 <template>
-    <RouterLink :to="href" class="py-2 px-3 ml-2 hover:bg-white-500 hover:text-black-400 rounded">
+    <RouterLink :to="href" class="py-2 px-3 ml-2 text-white hover:text-white-500">
         {{ link }}
     </RouterLink>
 </template>

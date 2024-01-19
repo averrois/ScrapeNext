@@ -29,9 +29,9 @@ onMounted(fetchProductDetails)
 <template>
     <Model :isClose="isActive" @close="handleClick"/>
     <section class="container mx-auto px-4 md:px-6 py-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-            <div>
-                <img alt="Product Image" class="rounded-lg object-cover w-full aspect-square mb-4 md:mb-0"
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+            <div class="flex justify-center items-center w-full h-full border-grey-200 bg-grey-100 border-2 p-6 rounded">
+                <img alt="Product Image" class="rounded object-cover w-full  max-w-md"
                     :src="product?.image" />
                 <!-- Mini other images  -->
                 <!-- <div class="grid grid-cols-4 gap-2 mt-4">
@@ -58,7 +58,7 @@ onMounted(fetchProductDetails)
                     <PriceInfoCard v-if="product?.averagePrice" title="Average  Price" :price="product?.averagePrice"
                         :currency="product?.currency" />
                 </div>
-                <button class="bg-primary hover:bg-blue-500 text-white  text-xl font-medium w-full py-2.5 px-4 rounded-full"
+                <button class="bg-white hover:bg-white-800 text-black  text-xl font-medium w-full py-2.5 px-4 rounded-full"
                     @click="handleClick">
                     Track
                 </button>
