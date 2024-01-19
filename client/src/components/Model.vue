@@ -40,7 +40,7 @@ const handleSubmit = async (e: Event) => {
     <div v-if="!isClose" class="absolute w-full h-full z-20 left-0 top-0 flex justify-center items-center">
         <div class="blur_bg"></div>
         <div class="fixed inset-0 flex items-center justify-center z-50 m-6" :class="{ 'hidden': isClose }">
-            <div class="bg-black-200 border-black-300 border-2 rounded-lg shadow-lg p-6 w-full max-w-md mx-auto">
+            <div class="bg-grey-100 border-grey-200 border-2 rounded-lg shadow-lg p-6 w-full max-w-md mx-auto">
                 <div class="flex justify-between items-center">
                     <h2 class="text-white text-2xl font-bold">Track This Product!</h2>
                     <button @click="closeModal"
@@ -66,7 +66,7 @@ const handleSubmit = async (e: Event) => {
                             id="email" placeholder="m@example.com" required type="email" v-model="emailAddress" />
                     </div>
                     <button
-                        class="text-white font-bold text-base inline-flex items-center justify-center rounded-md  ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full"
+                        class="text-black  text-base inline-flex items-center justify-center rounded-md  ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white hover:bg-white-800/90 h-10 px-4 py-2 w-full"
                         type="submit"    
                     >
                         Track

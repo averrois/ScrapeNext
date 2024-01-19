@@ -9,7 +9,6 @@ const fetchProducts = async () => {
     try {
         const response = await axios.get('api/products')
         products.value = response.data
-        console.log(products.value);
     } catch (error: any) {
         console.log(error)
         // Handle error...
