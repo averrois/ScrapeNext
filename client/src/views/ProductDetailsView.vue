@@ -66,19 +66,3 @@ onMounted(fetchProductDetails)
         </div>
     </section>
 </template>
-
-<style scoped>
-.blur_bg {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.562);
-    /* Adjust the darkness level here */
-    z-index: 1;
-    backdrop-filter: blur(5px);
-}
-</style>
