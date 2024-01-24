@@ -1,0 +1,45 @@
+# specify the version of docker-compose
+version: "3.8"
+services:
+  web:
+    depends_on:
+      - api
+    build: ./client
+    ports:
+      - 5173:5173
+    environment:
+      VITE_API_URL: http://localhost:3000/api
+    develop:
+      watch:                                    
+        - path: ./client/package.json
+          action: rebuild
+        - path: ./client/bun.lockb
+          action: rebuild
+        - path: ./client
+          target: /app
+          action: sync
+  api:
+    depends_on:
+      - db
+    build: ./server
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    develop:
+      watch:
+        - path: ./server/package.json
+          action: rebuild
+        - path: ./server/bun.lockb
+          action: rebuild
+        - path: ./server
+          target: /app
+          action: sync
+  db:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - products-data:/data/db
+volumes:
+  products-data:
