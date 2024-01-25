@@ -1,5 +1,7 @@
 # ScrapeNext
 
+![ScrapeNext](/.github/videos/demo.mp4 "ScrapeNext Demo")
+
 ScrapeNext is a Vue project designed to allow users to track Amazon products. It fetches product information based on user input, updates existing entries in the database, or adds new ones. The project includes cron jobs for regular updates and email notifications to users who track specific products.
 
 ## Setup Instructions
