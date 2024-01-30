@@ -18,7 +18,7 @@ coverage
 
 .vite
 .vscode
-
+client/.vscode
 /cypress/videos/
 /cypress/screenshots/
 
