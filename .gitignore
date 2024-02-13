@@ -16,6 +16,8 @@ coverage
 
 .env
 
+Makefile
+
 .vite
 .vscode
 client/.vscode
