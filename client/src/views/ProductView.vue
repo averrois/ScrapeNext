@@ -2,12 +2,13 @@
 import Card from '@/components/Card.vue'
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
+const baseURL = import.meta.env.VITE_BASE_URL
 
 const products = ref<any | null>(null)
 
 const fetchProducts = async () => {
     try {
-        const response = await axios.get('api/products')
+        const response = await axios.get(`${baseURL}/api/products`)
         products.value = response.data
     } catch (error: any) {
         console.log(error)
