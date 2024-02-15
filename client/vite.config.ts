@@ -2,6 +2,7 @@ import { fileURLToPath, URL } from "node:url";
 
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import { env } from "node:process";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,7 +15,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "scrapenext.onrender.com",
+        target: env.VITE_PROXY_URL || "http://localhost:3000",
         changeOrigin: true,
         secure: false,
       },
