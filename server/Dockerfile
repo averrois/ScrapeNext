@@ -8,7 +8,6 @@ COPY . .
 
 RUN bun install
 
-# Expose port for Bright Data proxy (if needed)
-EXPOSE 22225
+EXPOSE 3000
 
 CMD ["bun", "index.ts"]
