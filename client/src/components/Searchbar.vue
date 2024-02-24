@@ -3,7 +3,7 @@ import { ref } from "vue"
 import { useRouter } from "vue-router"
 import axios from "axios"
 
-const baseURL = import.meta.env.VITE_BASE_URL;
+// const baseURL = import.meta.env.VITE_BASE_URL;
 
 const searchPrompt = ref("")
 const isLoading = ref(false)
@@ -38,7 +38,7 @@ const handleSubmit = async (e: Event) => {
   try {
     isLoading.value = true;
 
-    const response = await axios.get(`${baseURL}/api`, {
+    const response = await axios.get(`/api`, {
       params: { url: `${searchPrompt.value}` },
     });
 
