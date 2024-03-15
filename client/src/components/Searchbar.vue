@@ -46,7 +46,7 @@ const handleSubmit = async (e: Event) => {
     const productId = await response.data._id;
 
     // Redirect to the product page
-    router.push(`${baseURL}/api/products/${productId}`);
+    router.push(`/api/products/${productId}`);
 
     searchPrompt.value = "";
   } catch (error) {
