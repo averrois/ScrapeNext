@@ -1,41 +1,61 @@
 <script setup lang="ts">
-import PriceInfoCard from '@/components/PriceInfoCard.vue'
-import { ref, onMounted } from 'vue'
-import axios from 'axios'
-import Model from '@/components/Model.vue'
-const baseURL = import.meta.env.VITE_BASE_URL
+import PriceInfoCard from "@/components/PriceInfoCard.vue";
+import { ref, onMounted } from "vue";
+import axios from "axios";
+import Model from "@/components/Model.vue";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
-const product = ref<any | null>(null)
-const isActive = ref(true)
+const isLoading = ref(false);
+const product = ref<any | null>(null);
+const isActive = ref(true);
 
 const fetchProductDetails = async () => {
-    try {
-        // Extract the product ID from the URL
-        const productId = window.location.pathname.split('/').pop()
-        const response = await axios.get(`${baseURL}/api/products/${productId}`)
-        product.value = await response.data
-    } catch (error: any) {
-        console.error(error)
-        // Handle error...
-    }
-}
+  try {
+    isLoading.value = true;
+    // Extract the product ID from the URL
+    const productId = window.location.pathname.split("/").pop();
+    const response = await axios.get(`${baseURL}/api/products/${productId}`);
+    product.value = await response.data;
+  } catch (error: any) {
+    console.error(error);
+    // Handle error...
+  } finally {
+    isLoading.value = false;
+  }
+};
 
 const handleClick = () => {
-    isActive.value = !isActive.value
-}
-onMounted(fetchProductDetails)
-
+  isActive.value = !isActive.value;
+};
+onMounted(fetchProductDetails);
 </script>
 
 <template>
-    <Model :isClose="isActive" @close="handleClick"/>
-    <section class="container mx-auto px-4 md:px-6 py-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-            <div class="flex justify-center items-center w-full h-full border-grey-200 bg-grey-100 border-2 p-6 rounded">
-                <img alt="Product Image" class="rounded object-cover w-full  max-w-md"
-                    :src="product?.image" />
-                <!-- Mini other images  -->
-                <!-- <div class="grid grid-cols-4 gap-2 mt-4">
+  <Model :isClose="isActive" @close="handleClick" />
+  <div
+    v-if="isLoading"
+    class="absolute w-full h-full z-20 left-0 top-0 flex justify-center items-center cursor-wait"
+  >
+    <div class="blur_bg"></div>
+    <div class="content z-10">
+      <div class="loading flex justify-center items-center">
+        <p class="text-2xl mb-6 font-medium uppercase">loading</p>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <section class="container mx-auto px-4 md:px-6 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+      <div
+        class="flex justify-center items-center w-full h-full border-grey-200 bg-grey-100 border-2 p-6 rounded"
+      >
+        <img
+          alt="Product Image"
+          class="rounded object-cover w-full max-w-md"
+          :src="product?.image"
+        />
+        <!-- Mini other images  -->
+        <!-- <div class="grid grid-cols-4 gap-2 mt-4">
                     <img alt="Product Thumbnail"
                         class="rounded-lg object-cover w-full aspect-square" 
                         height="200" 
@@ -43,27 +63,53 @@ onMounted(fetchProductDetails)
                         width="200"
                     />
                 </div> -->
-            </div>
-            <div>
-                <h1 class="text-3xl font-bold text-white mb-4">{{ product?.title }}</h1>
-                <a :href="product?.url" class="text-lg w-fit font-medium block mb-4 text-white-800" target="_blank">Visit
-                    Product</a>
-                <div class="flex flex-wrap gap-5 mb-4">
-                    <PriceInfoCard title="Current Price" :price="product?.currentPrice" :currency="product?.currency" />
-                    <PriceInfoCard v-if="product?.discountRate" title="Original Price" :price="product?.originalPrice"
-                        :currency="product?.currency" />
-                    <PriceInfoCard v-if="product?.lowestPrice" title="Lowest Price" :price="product?.lowestPrice"
-                        :currency="product?.currency" />
-                    <PriceInfoCard v-if="product?.highestPrice" title="Highest Price" :price="product?.highestPrice"
-                        :currency="product?.currency" />
-                    <PriceInfoCard v-if="product?.averagePrice" title="Average  Price" :price="product?.averagePrice"
-                        :currency="product?.currency" />
-                </div>
-                <button class="bg-white hover:bg-white-800 text-black  text-xl font-medium w-full py-2.5 px-4 rounded-full"
-                    @click="handleClick">
-                    Track
-                </button>
-            </div>
+      </div>
+      <div>
+        <h1 class="text-3xl font-bold text-white mb-4">{{ product?.title }}</h1>
+        <a
+          :href="product?.url"
+          class="text-lg w-fit font-medium block mb-4 text-white-800"
+          target="_blank"
+          >Visit Product</a
+        >
+        <div class="flex flex-wrap gap-5 mb-4">
+          <PriceInfoCard
+            title="Current Price"
+            :price="product?.currentPrice"
+            :currency="product?.currency"
+          />
+          <PriceInfoCard
+            v-if="product?.discountRate"
+            title="Original Price"
+            :price="product?.originalPrice"
+            :currency="product?.currency"
+          />
+          <PriceInfoCard
+            v-if="product?.lowestPrice"
+            title="Lowest Price"
+            :price="product?.lowestPrice"
+            :currency="product?.currency"
+          />
+          <PriceInfoCard
+            v-if="product?.highestPrice"
+            title="Highest Price"
+            :price="product?.highestPrice"
+            :currency="product?.currency"
+          />
+          <PriceInfoCard
+            v-if="product?.averagePrice"
+            title="Average  Price"
+            :price="product?.averagePrice"
+            :currency="product?.currency"
+          />
         </div>
-    </section>
+        <button
+          class="bg-white hover:bg-white-800 text-black text-xl font-medium w-full py-2.5 px-4 rounded-full"
+          @click="handleClick"
+        >
+          Track
+        </button>
+      </div>
+    </div>
+  </section>
 </template>
