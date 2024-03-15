@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import axios from "axios";
 import { ref } from "vue";
+const baseURL = import.meta.env.VITE_BASE_URL
 
 const emailAddress = ref("");
 const isLoading = ref(false);
@@ -26,7 +27,7 @@ const handleSubmit = async (e: Event) => {
     const productId = window.location.pathname.split("/").pop();
 
     const response = await axios.post(
-      `/api/products/${productId}/${emailAddress.value}`
+      `${baseURL}/api/products/${productId}/${emailAddress.value}`
     );
 
     // Handle the response if needed

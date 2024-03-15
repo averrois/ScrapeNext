@@ -3,7 +3,7 @@ import PriceInfoCard from '@/components/PriceInfoCard.vue'
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import Model from '@/components/Model.vue'
-// const baseURL = import.meta.env.VITE_BASE_URL
+const baseURL = import.meta.env.VITE_BASE_URL
 
 const product = ref<any | null>(null)
 const isActive = ref(true)
@@ -12,7 +12,7 @@ const fetchProductDetails = async () => {
     try {
         // Extract the product ID from the URL
         const productId = window.location.pathname.split('/').pop()
-        const response = await axios.get(`/api/products/${productId}`)
+        const response = await axios.get(`${baseURL}/api/products/${productId}`)
         product.value = await response.data
     } catch (error: any) {
         console.error(error)
