@@ -38,10 +38,7 @@ onMounted(fetchProductDetails);
   >
     <div class="blur_bg"></div>
     <div class="content z-10">
-      <div class="loading flex justify-center items-center">
-        <p class="text-2xl mb-6 font-medium uppercase">loading</p>
-        <span></span>
-      </div>
+      <div class="spinner"></div>
     </div>
   </div>
   <section class="container mx-auto px-4 md:px-6 py-8">

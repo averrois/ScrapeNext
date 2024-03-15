@@ -64,10 +64,7 @@ const handleSubmit = async (e: Event) => {
   >
     <div class="blur_bg"></div>
     <div class="content z-10">
-      <div class="loading flex justify-center items-center">
-        <p class="text-2xl mb-6 font-medium uppercase">loading</p>
-        <span></span>
-      </div>
+      <div class="spinner"></div>
     </div>
   </div>
   <div class="w-full max-w-xl space-y-2 mx-auto">
