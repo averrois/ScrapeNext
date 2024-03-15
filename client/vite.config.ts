@@ -11,13 +11,4 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-  server: {
-    proxy: {
-      "/api": {
-        target: process.env.VITE_PROXY_URL || "http://localhost:3000",
-        changeOrigin: true,
-        secure: false,
-      },
-    },
-  },
 });

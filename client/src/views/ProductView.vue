@@ -8,7 +8,7 @@ const products = ref<any | null>(null)
 
 const fetchProducts = async () => {
     try {
-        const response = await axios.get(`/products`)
+        const response = await axios.get(`${baseURL}/api/products`)
         products.value = response.data
     } catch (error: any) {
         console.log(error)
