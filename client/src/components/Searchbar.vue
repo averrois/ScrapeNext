@@ -74,6 +74,7 @@ const handleSubmit = async (e: Event) => {
         class="flex h-14 w-full rounded-md border px-6 truncate py-2 text-lg ring-offset-background file:border-0 file:bg-transparent placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 max-w-lg flex-1 bg-grey-100 text-white border-grey-200"
         placeholder="paste url here..."
         required
+        name="search-input"
         v-model="searchPrompt"
         autocomplete="off"
       />

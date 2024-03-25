@@ -96,6 +96,7 @@ const handleSubmit = async (e: Event) => {
               placeholder="m@example.com"
               required
               type="email"
+              name="email"
               v-model="emailAddress"
               autocomplete="email"
             />

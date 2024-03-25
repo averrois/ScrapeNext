@@ -3,8 +3,6 @@ import axios from "axios";
 import * as cheerio from "cheerio";
 import { extractCurrency, extractPrice } from "../utils";
 import { HttpsProxyAgent } from "https-proxy-agent";
-import dotenv from "dotenv";
-dotenv.config({ path: "../../.env" });
 
 export async function scrapeAmazonProduct(
   url: string,
@@ -15,10 +13,11 @@ export async function scrapeAmazonProduct(
 
   try {
     if (
-      process.env.VITE_BRIGHT_DATA_USERNAME &&
-      process.env.VITE_BRIGHT_DATA_PASSWORD
+      !process.env.VITE_BRIGHT_DATA_USERNAME ||
+      !process.env.VITE_BRIGHT_DATA_PASSWORD
     ) {
-      console.log("Using Bright Data proxy");
+      console.log("bright data credentials not found");
+      return null;
     }
     // Config bright data proxy
     const username = process.env.VITE_BRIGHT_DATA_USERNAME;
@@ -35,7 +34,6 @@ export async function scrapeAmazonProduct(
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
       },
     });
-
 
     // Initialize Cheerio
     const $ = cheerio.load(brightDataResponse.data);
