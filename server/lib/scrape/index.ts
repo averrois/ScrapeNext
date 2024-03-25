@@ -11,32 +11,32 @@ export async function scrapeAmazonProduct(
 ) {
   if (!url) return;
 
+  // BrightData proxy configuration
+  const username = String(process.env.VITE_BRIGHT_DATA_USERNAME);
+  const password = String(process.env.VITE_BRIGHT_DATA_PASSWORD);
+  const port = 22225;
+  const session_id = (1000000 * Math.random()) | 0;
+
+  if (!username || !password) {
+    console.log("BrightData username or password not found");
+    return;
+  }
+
+  const options = {
+    auth: {
+      username: `${username}-session-${session_id}`,
+      password,
+    },
+    host: "brd.superproxy.io",
+    port,
+    rejectUnauthorized: false,
+  };
+
   try {
-    if (
-      !process.env.VITE_BRIGHT_DATA_USERNAME ||
-      !process.env.VITE_BRIGHT_DATA_PASSWORD
-    ) {
-      console.log("bright data credentials not found");
-      return null;
-    }
-    // Config bright data proxy
-    const username = process.env.VITE_BRIGHT_DATA_USERNAME;
-    const password = process.env.VITE_BRIGHT_DATA_PASSWORD;
-    const port = 22225;
-
-    const proxyUrl = `http://${username}:${password}@brd.superproxy.io:${port}`;
-    const agent = new HttpsProxyAgent(proxyUrl);
-
-    const brightDataResponse = await axios.get(url, {
-      httpsAgent: agent,
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
-      },
-    });
+    const response = await axios.get(url, options);
 
     // Initialize Cheerio
-    const $ = cheerio.load(brightDataResponse.data);
+    const $ = cheerio.load(response.data);
 
     // Extract product title
     const title = $("#productTitle").text().trim();
@@ -54,8 +54,7 @@ export async function scrapeAmazonProduct(
       $(".a-price.a-text-price span.a-offscreen"),
       $("#listPrice"),
       $("#priceblock_dealprice"),
-      $(".a-size-base.a-color-price"),
-      $("a-price-whole")
+      $(".a-size-base.a-color-price")
     );
 
     // Extract if the product is out of stack
