@@ -82,7 +82,7 @@ const handleSubmit = async (e: Event) => {
         <p class="text-gray-600 dark:text-gray-300 mt-4">
           Enter your email to keep tracking this product.
         </p>
-        <form class="mt-6 space-y-4" @submit="handleSubmit">
+        <form class="mt-6 space-y-4" @submit="handleSubmit" name="track-form">
           <div class="space-y-2">
             <label
               class="text-white text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -97,6 +97,7 @@ const handleSubmit = async (e: Event) => {
               required
               type="email"
               v-model="emailAddress"
+              autocomplete="email"
             />
           </div>
           <button
