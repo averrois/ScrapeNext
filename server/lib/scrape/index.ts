@@ -36,7 +36,6 @@ export async function scrapeAmazonProduct(
       },
     });
 
-    // Handle the response as needed
 
     // Initialize Cheerio
     const $ = cheerio.load(brightDataResponse.data);
@@ -57,7 +56,8 @@ export async function scrapeAmazonProduct(
       $(".a-price.a-text-price span.a-offscreen"),
       $("#listPrice"),
       $("#priceblock_dealprice"),
-      $(".a-size-base.a-color-price")
+      $(".a-size-base.a-color-price"),
+      $("a-price-whole")
     );
 
     // Extract if the product is out of stack
