@@ -16,10 +16,7 @@ export const app = express();
 const port = process.env.PORT || 3000;
 
 // Enable CORS
-app.use(cors({
-  origin: process.env.CLIENT_URL,
-  credentials: false
-}));
+app.use(cors());
 
 // Connect to MongoDB
 connectToDB();
