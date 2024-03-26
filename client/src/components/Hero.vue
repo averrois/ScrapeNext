@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Searchbar from "./Searchbar.vue";
+import Searchbar from "./Searchbar.vue"
 </script>
 
 <template>
@@ -8,17 +8,11 @@ import Searchbar from "./Searchbar.vue";
       <div class="grid gap-6 items-center max-md:gap-4 h-full">
         <div class="flex flex-col justify-center space-y-4 text-center">
           <div class="space-y-2">
-            <h1
-              class="text-5xl font-bold tracking-tighter sm:text-7xl  bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500"
-            >
+            <h1 class="text-5xl font-bold tracking-tighter sm:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
               Unleash the Scraping Magic for Your Products with ScrapeNext
             </h1>
-            <p
-              class="max-w-[600px] text-zinc-200 md:text-xl dark:text-zinc-100 mx-auto"
-            >
-              Your go-to solution for effortlessly collecting and managing data
-              from the web. Explore the endless possibilities with ScrapeNest -
-              Simplifying Web Scraping for You.
+            <p class="max-w-[600px] text-zinc-200 md:text-xl dark:text-zinc-100 mx-auto">
+              Your go-to solution for effortlessly collecting and managing data from the web. Explore the endless possibilities with ScrapeNest - Simplifying Web Scraping for You.
             </p>
           </div>
           <Searchbar />

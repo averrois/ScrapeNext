@@ -3,17 +3,10 @@ defineProps(["product"])
 </script>
 
 <template>
-  <div
-    class="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-grey-200 bg-grey-100 shadow-md"
-  >
+  <div class="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-grey-200 bg-grey-100 shadow-md">
     <a class="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" href="#">
       <img class="object-cover" :src="product.image" alt="product image" />
-      <span
-        v-if="product.discount"
-        class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white"
-      >
-        {{ product.discount }}% OFF
-      </span>
+      <span v-if="product.discount" class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white"> {{ product.discount }}% OFF </span>
     </a>
     <div class="mt-4 px-5 pb-5">
       <h5 class="text-xl tracking-tight font-bold text-white truncate">
@@ -31,10 +24,7 @@ defineProps(["product"])
           </span>
         </p>
       </div>
-      <router-link
-        :to="`/products/${product._id}`"
-        class="flex items-center justify-center rounded-md bg-white px-5 py-2.5 text-center text-base font-medium text-black hover:bg-white-800"
-      >
+      <router-link :to="`/products/${product._id}`" class="flex items-center justify-center rounded-md bg-white px-5 py-2.5 text-center text-base font-medium text-black hover:bg-white-800">
         load more
       </router-link>
     </div>

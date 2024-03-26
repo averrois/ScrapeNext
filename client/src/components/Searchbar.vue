@@ -1,72 +1,65 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-import axios from "axios";
+import { ref } from "vue"
+import { useRouter } from "vue-router"
+import axios from "axios"
 
-const baseURL = import.meta.env.VITE_BASE_URL;
+const baseURL = import.meta.env.VITE_BASE_URL
 
-const searchPrompt = ref("");
-const isLoading = ref(false);
-const router = useRouter();
+const searchPrompt = ref("")
+const isLoading = ref(false)
+const router = useRouter()
 
 const isValidAmazonProductURL = (url: string) => {
   try {
-    const parsedURL = new URL(url);
-    const hostname = parsedURL.hostname;
+    const parsedURL = new URL(url)
+    const hostname = parsedURL.hostname
 
-    if (
-      hostname.includes("amazon.com") ||
-      hostname.includes("amazon.") ||
-      hostname.endsWith("amazon")
-    ) {
-      return true;
+    if (hostname.includes("amazon.com") || hostname.includes("amazon.") || hostname.endsWith("amazon")) {
+      return true
     }
   } catch (error) {
-    return false;
+    return false
   }
 
-  return false;
-};
+  return false
+}
 
 const handleSubmit = async (e: Event) => {
-  e.preventDefault();
+  e.preventDefault()
 
-  const isValidLink = isValidAmazonProductURL(searchPrompt.value);
+  const isValidLink = isValidAmazonProductURL(searchPrompt.value)
 
-  if (!isValidLink) return alert("Please provide a valid Amazon link");
+  if (!isValidLink) return alert("Please provide a valid Amazon link")
 
   try {
-    isLoading.value = true;
+    isLoading.value = true
 
     const response = await axios.get(`${baseURL}/api`, {
       params: { url: `${searchPrompt.value}` },
-    });
+    })
 
     // check response status
     if (response.status === 500) {
-      router.push("/crash");
+      router.push("/crash")
     }
 
     // console.log(response.data)
-    const productId = await response.data._id;
+    const productId = await response.data._id
 
     // Redirect to the product page
-    router.push(`/products/${productId}`);
+    router.push(`/products/${productId}`)
 
-    searchPrompt.value = "";
+    searchPrompt.value = ""
   } catch (error) {
-    console.log(error);
+    console.log(error)
   } finally {
-    isLoading.value = false;
+    isLoading.value = false
   }
-};
+}
 </script>
 
 <template>
-  <div
-    v-if="isLoading"
-    class="absolute w-full h-full z-20 left-0 top-0 flex justify-center items-center cursor-wait"
-  >
+  <div v-if="isLoading" class="absolute w-full h-full z-20 left-0 top-0 flex justify-center items-center cursor-wait">
     <div class="blur_bg"></div>
     <div class="content z-10">
       <div class="spinner"></div>

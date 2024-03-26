@@ -1,67 +1,54 @@
 <script setup lang="ts">
-import axios from "axios";
-import { ref } from "vue";
+import axios from "axios"
+import { ref } from "vue"
 const baseURL = import.meta.env.VITE_BASE_URL
 
-const emailAddress = ref("");
-const isLoading = ref(false);
+const emailAddress = ref("")
+const isLoading = ref(false)
 
 defineProps({
   isClose: {
     type: Boolean,
   },
-});
+})
 
-const emit = defineEmits(["close"]);
+const emit = defineEmits(["close"])
 
 function closeModal() {
-  emit("close");
+  emit("close")
 }
 
 const handleSubmit = async (e: Event) => {
-  e.preventDefault();
+  e.preventDefault()
 
   try {
-    isLoading.value = true;
+    isLoading.value = true
     // Extract productId from the URL
-    const productId = window.location.pathname.split("/").pop();
+    const productId = window.location.pathname.split("/").pop()
 
-    const response = await axios.post(
-      `${baseURL}/api/products/${productId}/${emailAddress.value}`
-    );
+    const response = await axios.post(`${baseURL}/api/products/${productId}/${emailAddress.value}`)
 
     // Handle the response if needed
-    console.log(response.data);
+    console.log(response.data)
   } catch (error: any) {
-    console.error(error);
+    console.error(error)
     // Handle errors, show an alert, etc.
   } finally {
-    isLoading.value = false;
-    emailAddress.value = "";
-    closeModal();
+    isLoading.value = false
+    emailAddress.value = ""
+    closeModal()
   }
-};
+}
 </script>
 
 <template>
-  <div
-    v-if="!isClose"
-    class="absolute w-full h-full z-20 left-0 top-0 flex justify-center items-center"
-  >
+  <div v-if="!isClose" class="absolute w-full h-full z-20 left-0 top-0 flex justify-center items-center">
     <div class="blur_bg"></div>
-    <div
-      class="fixed inset-0 flex items-center justify-center z-50 m-6"
-      :class="{ hidden: isClose }"
-    >
-      <div
-        class="bg-grey-100 border-grey-200 border-2 rounded-lg shadow-lg p-6 w-full max-w-md mx-auto"
-      >
+    <div class="fixed inset-0 flex items-center justify-center z-50 m-6" :class="{ hidden: isClose }">
+      <div class="bg-grey-100 border-grey-200 border-2 rounded-lg shadow-lg p-6 w-full max-w-md mx-auto">
         <div class="flex justify-between items-center">
           <h2 class="text-white text-2xl font-bold">Track This Product!</h2>
-          <button
-            @click="closeModal"
-            class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
-          >
+          <button @click="closeModal" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -79,17 +66,10 @@ const handleSubmit = async (e: Event) => {
             </svg>
           </button>
         </div>
-        <p class="text-gray-600 dark:text-gray-300 mt-4">
-          Enter your email to keep tracking this product.
-        </p>
+        <p class="text-gray-600 dark:text-gray-300 mt-4">Enter your email to keep tracking this product.</p>
         <form class="mt-6 space-y-4" @submit="handleSubmit" name="track-form">
           <div class="space-y-2">
-            <label
-              class="text-white text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              for="email"
-            >
-              Email
-            </label>
+            <label class="text-white text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="email"> Email </label>
             <input
               class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               id="email"
