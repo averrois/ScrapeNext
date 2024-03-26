@@ -21,12 +21,17 @@ export async function scrapeAmazonProduct(
   }
 
   const session_id = (1000000 * Math.random()) | 0;
-  const proxyUrl = 'http://brd-customer-hl_cc5a0a73-zone-unblocker:jcl1fw512m7x@brd.superproxy.io:22225';
+  const proxyUrl = `http://${username}:${password}@brd.superproxy.io:${port}`;
   const agent = new HttpsProxyAgent(proxyUrl);
 
   try {
     const response = await axios.get(url, {
       httpsAgent: agent,
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.142.86 Safari/537.36",
+        Cookie: `session_id=${session_id}`,
+      },
     });
 
     // Initialize Cheerio
