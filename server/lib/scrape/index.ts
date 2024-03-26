@@ -11,29 +11,23 @@ export async function scrapeAmazonProduct(
 ) {
   if (!url) return;
 
-  // BrightData proxy configuration
   const username = String(process.env.VITE_BRIGHT_DATA_USERNAME);
   const password = String(process.env.VITE_BRIGHT_DATA_PASSWORD);
   const port = 22225;
-  const session_id = (1000000 * Math.random()) | 0;
 
   if (!username || !password) {
     console.log("BrightData username or password not found");
     return;
   }
 
-  const options = {
-    auth: {
-      username: `${username}-session-${session_id}`,
-      password,
-    },
-    host: "brd.superproxy.io",
-    port,
-    rejectUnauthorized: false,
-  };
+  const session_id = (1000000 * Math.random()) | 0;
+  const proxyUrl = 'http://brd-customer-hl_cc5a0a73-zone-unblocker:jcl1fw512m7x@brd.superproxy.io:22225';
+  const agent = new HttpsProxyAgent(proxyUrl);
 
   try {
-    const response = await axios.get(url, options);
+    const response = await axios.get(url, {
+      httpsAgent: agent,
+    });
 
     // Initialize Cheerio
     const $ = cheerio.load(response.data);
@@ -98,7 +92,9 @@ export async function scrapeAmazonProduct(
 
     return data;
   } catch (error: any) {
-    console.error("Error:", error.message);
-    res?.status(500).json({ error: "Internal server error" });
+    console.error("Error in scrapeAmazonProduct:", error.message);
+    if (res) {
+      res.status(500).json({ error: "Internal server error" });
+    }
   }
 }
