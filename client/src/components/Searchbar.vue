@@ -42,6 +42,11 @@ const handleSubmit = async (e: Event) => {
       params: { url: `${searchPrompt.value}` },
     });
 
+    // check response status
+    if (response.status === 500) {
+      router.push("/crash");
+    }
+
     // console.log(response.data)
     const productId = await response.data._id;
 
