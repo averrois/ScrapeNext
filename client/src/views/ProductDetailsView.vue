@@ -82,13 +82,13 @@ onMounted(fetchProductDetails);
             :currency="product?.currency"
           />
           <PriceInfoCard
-            v-if="product?.lowestPrice"
+            v-if="product?.lowestPrice < product?.currentPrice"
             title="Lowest Price"
             :price="product?.lowestPrice"
             :currency="product?.currency"
           />
           <PriceInfoCard
-            v-if="product?.highestPrice"
+            v-if="product?.highestPrice > product?.currentPrice"
             title="Highest Price"
             :price="product?.highestPrice"
             :currency="product?.currency"
