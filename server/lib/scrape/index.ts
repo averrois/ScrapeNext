@@ -25,14 +25,7 @@ export async function scrapeAmazonProduct(
   const agent = new HttpsProxyAgent(proxyUrl);
 
   try {
-    const response = await axios.get(url, {
-      httpsAgent: agent,
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.142.86 Safari/537.36",
-        Cookie: `session_id=${session_id}`,
-      },
-    });
+    const response = await axios.get(url);
 
     // Initialize Cheerio
     const $ = cheerio.load(response.data);
