@@ -4,4 +4,3 @@ module.exports = {
   printWidth: 200,
   // singleAttributePerLine: true,
 }
-
