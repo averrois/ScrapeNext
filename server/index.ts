@@ -5,11 +5,7 @@ import { connectToDB } from "./lib/database";
 import { scrapeAmazonProduct } from "./lib/scrape";
 import Product from "./lib/database/models/product.model";
 import { getAveragePrice, getHighestPrice, getLowestPrice } from "./lib/utils";
-import {
-  addUserEmailToProduct,
-  getAllProducts,
-  getProductById,
-} from "./lib/controllers/productController";
+import { addUserEmailToProduct, getAllProducts, getProductById } from "./lib/controllers/productController";
 
 dotenv.config({ path: "../.env" });
 export const app = express();
@@ -80,10 +76,7 @@ app.use("/api", async (req: Request, res: Response) => {
     const existingProduct = await Product.findOne({ url: scrapedProudct.url });
 
     if (existingProduct) {
-      const updatedPriceHistory: any = [
-        ...existingProduct.priceHistory,
-        { price: scrapedProudct.currentPrice },
-      ];
+      const updatedPriceHistory: any = [...existingProduct.priceHistory, { price: scrapedProudct.currentPrice }];
 
       product = {
         ...scrapedProudct,
@@ -99,11 +92,7 @@ app.use("/api", async (req: Request, res: Response) => {
       return res.status(200).json({ _id: existingProduct._id });
     }
 
-    const newProduct = await Product.findOneAndUpdate(
-      { url: scrapedProudct.url },
-      product,
-      { upsert: true, new: true }
-    );
+    const newProduct = await Product.findOneAndUpdate({ url: scrapedProudct.url }, product, { upsert: true, new: true });
 
     // Return the new product's _id
     return res.status(200).json({ _id: newProduct._id });

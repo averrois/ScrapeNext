@@ -1,26 +1,20 @@
 import { EmailContent, EmailProductInfo, NotificationType } from "../types";
-import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
 
-dotenv.config({ path: '../../../.env' })
+dotenv.config({ path: "../../../.env" });
 
 const Notification = {
-  WELCOME: 'WELCOME',
-  CHANGE_OF_STOCK: 'CHANGE_OF_STOCK',
-  LOWEST_PRICE: 'LOWEST_PRICE',
-  THRESHOLD_MET: 'THRESHOLD_MET',
-}
+  WELCOME: "WELCOME",
+  CHANGE_OF_STOCK: "CHANGE_OF_STOCK",
+  LOWEST_PRICE: "LOWEST_PRICE",
+  THRESHOLD_MET: "THRESHOLD_MET",
+};
 
-export async function generateEmailBody(
-  product: EmailProductInfo,
-  type: NotificationType
-) {
+export async function generateEmailBody(product: EmailProductInfo, type: NotificationType) {
   const THRESHOLD_PERCENTAGE = 40;
   // Shorten the product title
-  const shortenedTitle =
-    product.title.length > 20
-      ? `${product.title.substring(0, 20)}...`
-      : product.title;
+  const shortenedTitle = product.title.length > 20 ? `${product.title.substring(0, 20)}...` : product.title;
 
   let subject = "";
   let body = "";
@@ -84,18 +78,17 @@ export async function generateEmailBody(
 async function createTransporter() {
   const transporter = nodemailer.createTransport({
     pool: true,
-    host: 'smtp.zoho.com',
+    host: "smtp.zoho.com",
     port: 465,
     secure: true,
     auth: {
       user: "scrapenext@zohomail.com",
       pass: process.env.EMAIL_PASS,
     },
-    maxConnections: 1
+    maxConnections: 1,
   });
   return transporter;
 }
-
 
 export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) => {
   const transporter = await createTransporter();
@@ -104,13 +97,13 @@ export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) =>
     to: sendTo,
     html: emailContent.body,
     subject: emailContent.subject,
-  }
+  };
 
   transporter.sendMail(mailOptions, (error: any, info: any) => {
     if (error) {
-      console.error('Error sending email:', error);
+      console.error("Error sending email:", error);
     } else {
-      console.log('Email sent:', info);
+      console.log("Email sent:", info);
     }
   });
-}
+};

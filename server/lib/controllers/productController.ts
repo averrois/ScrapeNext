@@ -1,48 +1,48 @@
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 import Product from "../database/models/product.model";
-import { User } from '../types';
-import { generateEmailBody, sendEmail } from '../nodemailer';
+import { User } from "../types";
+import { generateEmailBody, sendEmail } from "../nodemailer";
 
 export async function getAllProducts(req: Request, res: Response) {
-    try {
-        const products = await Product.find();
-        res.json(products);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Error fetching products');
-    }
+  try {
+    const products = await Product.find();
+    res.json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error fetching products");
+  }
 }
 
 export async function getProductById(productId: string) {
-    try {
-        const product = await Product.findOne({ _id: productId });
+  try {
+    const product = await Product.findOne({ _id: productId });
 
-        if (!product) return null;
+    if (!product) return null;
 
-        return product;
-    } catch (error) {
-        console.log(error);
-    }
+    return product;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function addUserEmailToProduct(productId: string, userEmail: string) {
-    try {
-        const product = await Product.findById(productId);
+  try {
+    const product = await Product.findById(productId);
 
-        if (!product) return;
+    if (!product) return;
 
-        const userExists = product.users.some((user: User) => user.email === userEmail);
+    const userExists = product.users.some((user: User) => user.email === userEmail);
 
-        if (!userExists) {
-            product.users.push({ email: userEmail });
+    if (!userExists) {
+      product.users.push({ email: userEmail });
 
-            await product.save();
+      await product.save();
 
-            const emailContent = await generateEmailBody(product, "WELCOME");
+      const emailContent = await generateEmailBody(product, "WELCOME");
 
-            await sendEmail(emailContent, [userEmail]);
-        }
-    } catch (error: any) {
-        console.log(error);
+      await sendEmail(emailContent, [userEmail]);
     }
+  } catch (error: any) {
+    console.log(error);
+  }
 }

@@ -4,11 +4,7 @@ import * as cheerio from "cheerio";
 import { extractCurrency, extractPrice } from "../utils";
 import { HttpsProxyAgent } from "https-proxy-agent";
 
-export async function scrapeAmazonProduct(
-  url: string,
-  req?: Request,
-  res?: Response
-) {
+export async function scrapeAmazonProduct(url: string, req?: Request, res?: Response) {
   if (!url) return;
 
   const username = String(process.env.VITE_BRIGHT_DATA_USERNAME);
@@ -28,7 +24,7 @@ export async function scrapeAmazonProduct(
       httpsAgent: agent,
       proxy: false,
       rejectUnauthorized: false,
-    }); 
+    });
 
     // Initialize Cheerio
     const $ = cheerio.load(response.data);
@@ -37,34 +33,19 @@ export async function scrapeAmazonProduct(
     const title = $("#productTitle").text().trim();
 
     // Extract product current price (discount)
-    const currentPrice = extractPrice(
-      $(".priceToPay span.a-price-whole"),
-      $(".a.size.base.a-color-price"),
-      $(".a-button-selected .a-color-base")
-    );
+    const currentPrice = extractPrice($(".priceToPay span.a-price-whole"), $(".a.size.base.a-color-price"), $(".a-button-selected .a-color-base"));
 
     // // Extract original
-    const originalPrice = extractPrice(
-      $("#priceblock_ourprice"),
-      $(".a-price.a-text-price span.a-offscreen"),
-      $("#listPrice"),
-      $("#priceblock_dealprice"),
-      $(".a-size-base.a-color-price")
-    );
+    const originalPrice = extractPrice($("#priceblock_ourprice"), $(".a-price.a-text-price span.a-offscreen"), $("#listPrice"), $("#priceblock_dealprice"), $(".a-size-base.a-color-price"));
 
     console.log(currentPrice);
     console.log(originalPrice);
 
     // Extract if the product is out of stack
-    const outOfStock =
-      $("#availability span").text().trim().toLowerCase() ===
-      "currently unavailable";
+    const outOfStock = $("#availability span").text().trim().toLowerCase() === "currently unavailable";
 
     // Extract images & oarsing them
-    const images =
-      $("#imgBlkFront").attr("data-a-dynamic-image") ||
-      $("#landingImage").attr("data-a-dynamic-image") ||
-      "{}";
+    const images = $("#imgBlkFront").attr("data-a-dynamic-image") || $("#landingImage").attr("data-a-dynamic-image") || "{}";
 
     const imageUrls = Object.keys(JSON.parse(images));
 

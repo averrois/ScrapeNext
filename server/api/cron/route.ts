@@ -1,4 +1,4 @@
-import { Request } from 'express';
+import { Request } from "express";
 import Product from "../../lib/database/models/product.model";
 import { generateEmailBody, sendEmail } from "../../lib/nodemailer";
 import { scrapeAmazonProduct } from "../../lib/scrape";
@@ -10,7 +10,6 @@ export const revalidate = 0;
 
 export async function GET(request: Request) {
   try {
-
     const products = await Product.find({});
 
     if (!products) throw new Error("No product fetched");
@@ -18,7 +17,6 @@ export async function GET(request: Request) {
     // 1- SCRAPE LATEST PRODUCT DETAILS & UPDATE DB
     const updatedProducts = await Promise.all(
       products.map(async (currentProduct) => {
-      
         // Scrape product
         const scrapedProduct = await scrapeAmazonProduct(currentProduct.url);
 
@@ -44,14 +42,11 @@ export async function GET(request: Request) {
           {
             url: product.url,
           },
-          product
+          product,
         );
 
         // 2- CHECK EACH PRODUCT'S STATUS & SEND EMAIL ACCORDINGLY
-        const emailNotifType = getEmailNotifType(
-          scrapedProduct,
-          currentProduct
-        );
+        const emailNotifType = getEmailNotifType(scrapedProduct, currentProduct);
 
         if (emailNotifType && updatedProduct.users.length > 0) {
           const productInfo = {
@@ -59,20 +54,15 @@ export async function GET(request: Request) {
             url: updatedProduct.url,
           };
           // Construct emailContent
-          const emailContent = await generateEmailBody(
-            productInfo,
-            emailNotifType
-          );
+          const emailContent = await generateEmailBody(productInfo, emailNotifType);
           // Get array of user emails
-          const userEmails = updatedProduct.users.map(
-            (user: any) => user.email
-          );
+          const userEmails = updatedProduct.users.map((user: any) => user.email);
           // Send email notification
           await sendEmail(emailContent, userEmails);
         }
 
         return updatedProduct;
-      })
+      }),
     );
 
     // return NextResponse.json({
