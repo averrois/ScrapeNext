@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "bun --hot run index.ts"
+    "format": "prettier --write '**/*.{ts,js}', .ts"
   },
   "devDependencies": {
     "bun-types": "latest",
