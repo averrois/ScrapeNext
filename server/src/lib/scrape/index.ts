@@ -23,7 +23,6 @@ export async function scrapeAmazonProduct(url: string, req?: Request, res?: Resp
     const response = await axios.get(url, {
       httpsAgent: agent,
       proxy: false,
-      rejectUnauthorized: false,
     });
 
     // Initialize Cheerio

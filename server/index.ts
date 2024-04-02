@@ -1,11 +1,11 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { connectToDB } from "./lib/database";
-import { scrapeAmazonProduct } from "./lib/scrape";
-import Product from "./lib/database/models/product.model";
-import { getAveragePrice, getHighestPrice, getLowestPrice } from "./lib/utils";
-import { addUserEmailToProduct, getAllProducts, getProductById } from "./lib/controllers/productController";
+import { connectToDB } from "./src/lib/database";
+import { scrapeAmazonProduct } from "./src/lib/scrape";
+import Product from "./src/lib/database/models/product.model";
+import { getAveragePrice, getHighestPrice, getLowestPrice } from "./src/lib/utils";
+import { addUserEmailToProduct, getAllProducts, getProductById } from "./src/lib/controllers/productController";
 
 dotenv.config({ path: "../.env" });
 export const app = express();

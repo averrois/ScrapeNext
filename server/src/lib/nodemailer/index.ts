@@ -2,7 +2,7 @@ import { EmailContent, EmailProductInfo, NotificationType } from "../types";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 
-dotenv.config({ path: "../../../.env" });
+dotenv.config({ path: "../../../../.env" });
 
 const Notification = {
   WELCOME: "WELCOME",
